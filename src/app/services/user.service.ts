@@ -1,0 +1,31 @@
+import { ErrorHandler, Injectable } from '@angular/core';
+import { Utilisateur } from '../model/utilisateur';
+import { ApiService } from './api/api.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RegisterService extends ApiService {
+
+    constructor(errorHandler: ErrorHandler) {
+        super(errorHandler);
+    }
+
+    public async register(user: any): Promise<any> {
+        return await this.post<any>({
+            url: "/register",
+            data: user
+        })
+    }
+
+    public async loadUsers(): Promise<Utilisateur[]> {
+        try {
+            return await this.get<Utilisateur[]>({
+                url: "/users"
+            });
+        } catch (error) {
+            return Promise.reject(error);
+        }
+       
+    }
+}
