@@ -5,7 +5,7 @@ import { ApiService } from './api/api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService extends ApiService {
+export class UserService extends ApiService {
 
     constructor(errorHandler: ErrorHandler) {
         super(errorHandler);
@@ -13,19 +13,24 @@ export class RegisterService extends ApiService {
 
     public async register(user: any): Promise<any> {
         return await this.post<any>({
-            url: "/register",
+            url: '/register',
             data: user
-        })
+        });
+    }
+
+    public async login(username: string, password: string): Promise<any>{
+        return await this.post<any>({
+            url: '/login'
+        });
     }
 
     public async loadUsers(): Promise<Utilisateur[]> {
         try {
             return await this.get<Utilisateur[]>({
-                url: "/users"
+                url: '/users'
             });
         } catch (error) {
             return Promise.reject(error);
         }
-       
     }
 }

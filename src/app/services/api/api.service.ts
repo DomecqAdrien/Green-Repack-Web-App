@@ -1,15 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 import { ErrorHandler, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AxiosInstance } from 'axios'; 
+import { AxiosInstance } from 'axios';
 
 export interface Params {
-	[ key: string ]: any;
+    [ key: string ]: any;
 }
 
 export interface GetOptions {
-	url: string;
-	params?: Params;
+    url: string;
+    params?: Params;
 }
 
 export interface PostOptions {
@@ -18,9 +18,9 @@ export interface PostOptions {
 }
 
 export interface ErrorResponse {
-	id: string;
-	code: string;
-	message: string;
+    id: string;
+    code: string;
+    message: string;
 }
 
 @Injectable({
@@ -34,21 +34,21 @@ export class ApiService {
     private axiosClient: AxiosInstance;
     private errorHandler: ErrorHandler;
 
-    constructor( errorHandler: ErrorHandler) { 
+    constructor( errorHandler: ErrorHandler) {
         this.errorHandler = errorHandler;
 
         this.axiosClient = axios.create({
             timeout: 3000,
             headers : {
-                "X-Initialized-At": Date.now().toString
+                'X-Initialized-At': Date.now().toString
             }
         });
     }
 
-    public async get<T>(options: GetOptions) : Promise<T> {
+    public async get<T>(options: GetOptions): Promise<T> {
         try {
-            var axiosResponse = await this.axiosClient.request<T>({
-                method: "get",
+            const axiosResponse = await this.axiosClient.request<T>({
+                method: 'get',
                 url: this.apiUrl + options.url,
                 params: options.params
             });
@@ -59,10 +59,10 @@ export class ApiService {
         }
     }
 
-    public async post<T>(options: PostOptions) : Promise<T> {
+    public async post<T>(options: PostOptions): Promise<T> {
         try {
-            var axiosResponse = await this.axiosClient.request<T>({
-                method: "post",
+            const axiosResponse = await this.axiosClient.request<T>({
+                method: 'post',
                 url: this.apiUrl + options.url,
                 data: options.data
             });
