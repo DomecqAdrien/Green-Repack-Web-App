@@ -34,7 +34,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+            ]
           },
           "configurations": {
             "production": {
@@ -69,7 +70,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Green-Repack-Web-App:build"
+            "browserTarget": "Green-Repack-Web-App:build",
+            "proxyConfig": "./proxy.conf.json"
           },
           "configurations": {
             "production": {

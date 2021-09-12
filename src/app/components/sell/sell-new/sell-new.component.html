@@ -1,0 +1,16 @@
+<mat-table [dataSource] = "dossiers">
+    <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let dossier"> {{ dossier.id }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Statut">
+        <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
+        <mat-cell *matCellDef="let dossier"> {{ dossier.statut }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let dossier"> {{ dossier.date | date: 'short' }} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row.id)"></mat-row>
+</mat-table>

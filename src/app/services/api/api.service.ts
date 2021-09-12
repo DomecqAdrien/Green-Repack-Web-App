@@ -40,7 +40,6 @@ export class ApiService {
         this.axiosClient = axios.create({
             timeout: 3000,
             headers : {
-                'X-Initialized-At': Date.now().toString
             }
         });
     }

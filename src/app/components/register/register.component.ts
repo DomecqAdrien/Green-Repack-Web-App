@@ -1,13 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/alert.service';
+import { Utilisateur } from 'src/app/model/Utilisateur';
 import { UserService } from 'src/app/services/user.service';
+
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
@@ -24,10 +44,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): any {
       this.form = this.formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          username: ['', Validators.required],
-          password: ['', [Validators.required, Validators.minLength(6)]]
+          prenom: ['', Validators.required],
+          nom: ['', Validators.required],
+          email: ['', Validators.required],
+          password: ['', [Validators.required, Validators.minLength(6)]],
+          // password_check: ['', Validators.required],
+          adresse: ['', Validators.required],
+          date_naissance: ['', Validators.required],
+          code_postal: ['', Validators.required],
+          ville: ['', Validators.required],
       });
   }
 
@@ -35,15 +60,13 @@ export class RegisterComponent implements OnInit {
   get f(): any { return this.form.controls; }
 
   onSubmit(): any {
+
       this.submitted = true;
-
-      // reset alerts on submit
       this.alertService.clear();
-
-      // stop here if form is invalid
       if (this.form.invalid) {
           return;
       }
+      this.form.value.date_naissance = this.form.value.date_naissance.format('YYYY-MM-DD');
 
       this.loading = true;
       this.userService.register(this.form.value).then(res => {

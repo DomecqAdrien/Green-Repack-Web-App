@@ -20,7 +20,7 @@ export class AlertComponent implements OnInit {
 
     constructor(private router: Router, private alertService: AlertService) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         // subscribe to new alert notifications
         this.alertSubscription = this.alertService.onAlert(this.id)
             .subscribe(alert => {
@@ -51,15 +51,15 @@ export class AlertComponent implements OnInit {
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         // unsubscribe to avoid memory leaks
         this.alertSubscription.unsubscribe();
         this.routeSubscription.unsubscribe();
     }
 
-    removeAlert(alert: Alert) {
+    removeAlert(alert: Alert): void {
         // check if already removed to prevent error on auto close
-        if (!this.alerts.includes(alert)) return;
+        if (!this.alerts.includes(alert)) { return; }
 
         if (this.fade) {
             // fade out alert
@@ -76,10 +76,10 @@ export class AlertComponent implements OnInit {
     }
 
     cssClass(alert: Alert) {
-        if (!alert) return;
+        if (!alert) { return; }
 
         const classes = ['alert', 'alert-dismissable', 'mt-4', 'container'];
-                
+
         const alertTypeClass = {
             [AlertType.Success]: 'alert alert-success',
             [AlertType.Error]: 'alert alert-danger',

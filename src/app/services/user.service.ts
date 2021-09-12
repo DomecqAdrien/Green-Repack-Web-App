@@ -1,5 +1,5 @@
 import { ErrorHandler, Injectable } from '@angular/core';
-import { Utilisateur } from '../model/utilisateur';
+import { Utilisateur } from '../model/Utilisateur';
 import { ApiService } from './api/api.service';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class UserService extends ApiService {
 
     public async register(user: any): Promise<any> {
         return await this.post<any>({
-            url: '/register',
+            url: '/user',
             data: user
         });
     }

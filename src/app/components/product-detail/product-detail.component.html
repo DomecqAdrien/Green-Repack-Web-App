@@ -1,1 +1,74 @@
-<p>product-detail works!</p>
+<main class="container">
+
+  
+
+    <!-- Left Column / Headphones Image -->
+    <div class="left-column">
+      <hr style="background-color:black" />  
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let image of images">
+          <img src="{{ image }}" alt="Delhi Metro">  
+        </ng-template>
+      </ngb-carousel>
+      <!--<div class="carousel slide" id="carouselExampleControls" data-ride="carousel">
+        <div class="carousel-inner">
+
+          <div class="carousel-item" *ngFor="let image of images">
+            <img class="d-block w-100" src="{{ image.img }}">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>-->
+
+      <!--<div class="row">  
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">  
+          <div ngxSlickItem *ngFor="let image of images" class="slide">  
+            <img src="{{ image.img }}" width="100%">  
+          </div>  
+        </ngx-slick-carousel>  
+        </div>  
+        <img data-image="black" src="images/black.png" alt="">-->
+    </div>
+   
+   
+    <!-- Right Column -->
+    <div class="right-column">
+   
+      <!-- Product Description -->
+      <div class="product-description">
+        <span>Headphones</span>
+        <h1>Beats EP</h1>
+        <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
+      </div>
+   
+      <!-- Product Configuration -->
+      <div class="product-configuration">
+   
+        <!-- Cable Configuration -->
+        <div class="cable-config">
+          <span>Cable configuration</span>
+   
+          <div class="cable-choose">
+            <button>Straight</button>
+            <button>Coiled</button>
+            <button>Long-coiled</button>
+          </div>
+   
+          <a href="#">How to configurate your headphones</a>
+        </div>
+      </div>
+   
+      <!-- Product Pricing -->
+      <div class="product-price">
+        <span>148$</span>
+        <a href="#" class="cart-btn">Ajouter au panier</a>
+      </div>
+    </div>
+  </main>
