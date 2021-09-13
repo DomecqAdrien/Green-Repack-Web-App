@@ -1,11 +1,13 @@
+import { Caracteristique } from './Caracteristique';
+
 export class ProduitCaracteristiques {
     id: number;
     valeur: string;
-    caracteristiqueId: number;
+    caracteristique: Caracteristique;
     produitId: number;
 
-    constructor(valeur: string, caracteristiqueId: number){
+    constructor(valeur: string, caracteristique: Caracteristique){
         this.valeur = valeur;
-        this.caracteristiqueId = caracteristiqueId;
+        this.caracteristique = caracteristique;
     }
 }

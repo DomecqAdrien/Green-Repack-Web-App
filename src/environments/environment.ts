@@ -4,6 +4,8 @@
 
 export const environment = {
   apiUrl: 'http://localhost:8080/api',
+  imgurClientId: 'c903889c052c04a',
+  imgurClientSecret: '59dfea30904debab43605417477b9898a9499cce',
   production: false
 };
 

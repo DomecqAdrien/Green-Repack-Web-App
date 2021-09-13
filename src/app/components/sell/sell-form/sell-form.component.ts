@@ -4,10 +4,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Caracteristiques } from 'src/app/model/Caracteristiques';
+import { Caracteristique } from 'src/app/model/Caracteristique';
 import { Dossier } from 'src/app/model/Dossier';
 import { Produit } from 'src/app/model/Produit';
 import { ProduitCaracteristiques } from 'src/app/model/ProduitCaracteristiques';
+import { Unite } from 'src/app/model/Unite';
 
 @Component({
   selector: 'app-sell-form',
@@ -16,10 +17,9 @@ import { ProduitCaracteristiques } from 'src/app/model/ProduitCaracteristiques';
 })
 export class SellFormComponent implements OnInit {
 
+  files: any[] = [];
   form: FormGroup;
-  
   champs = null;
-  
   public filteredMarques: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
 
   loading = false;
@@ -27,8 +27,13 @@ export class SellFormComponent implements OnInit {
   categories = ['Téléphone', 'Electroménager'];
   etats = ['Neuf', 'Peu usé'];
   colonnes = {
-    Electroménager: [new Caracteristiques(1, 'Poids'), new Caracteristiques(2, 'Taille')],
-    Téléphone: [new Caracteristiques(1, 'Nom')]
+    Electroménager: [
+      new Caracteristique(1, 'Poids', new Unite('Kilogramme', 'number', 'Kg')),
+      new Caracteristique(2, 'Taille', new Unite('Mètres', 'number', 'm'))
+    ],
+    Téléphone: [
+      new Caracteristique(1, 'Nom', new Unite('Texte', 'text', ''))
+    ]
   };
   defaultFields = {
     marque: ['', Validators.required],
@@ -37,6 +42,8 @@ export class SellFormComponent implements OnInit {
     description: [''],
     etat: ['', Validators.required]
   };
+
+  caracsInstances = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,12 +82,15 @@ export class SellFormComponent implements OnInit {
     const values = (this.form.value);
     const newVente = new Dossier(
       '',
-      new Produit(values.description, values.etat, values.categorie, [], [])
+      new Produit(values.description, 'Iphone 6', values.etat, values.categorie, [], [])
     );
 
     Object.keys(values).forEach(key => {
       if (key.startsWith('carac_')) {
-        newVente.produit.produitCaracteristiques.push(new ProduitCaracteristiques(values[key], +key.replace('carac_', '')));
+        const caracId = key.substr(8, 1);
+        console.log(caracId);
+        newVente.produit.produitCaracteristiques.push(
+          new ProduitCaracteristiques(values[key], this.caracsInstances[key.replace('carac_', '')]));
       }
     });
 
@@ -90,11 +100,14 @@ export class SellFormComponent implements OnInit {
   selectCategory(event: any): void{
     this.updateDefaultFields();
     this.champs = this.colonnes[event.value];
+
+
     const formWithCaracs = {};
 
 
-    this.colonnes[event.value].forEach((carac: Caracteristiques) => {
-      formWithCaracs['carac_' + carac.id] = new FormControl('');
+    this.colonnes[event.value].forEach((carac: Caracteristique) => {
+      this.caracsInstances[carac.libelle] = carac;
+      formWithCaracs['carac_' + carac.libelle] = new FormControl('');
     });
     Object.assign(formWithCaracs, this.defaultFields);
     this.form = this.formBuilder.group(formWithCaracs);
@@ -104,6 +117,39 @@ export class SellFormComponent implements OnInit {
     Object.keys(this.defaultFields).forEach(key => {
       this.defaultFields[key] = this.form.value[key];
     });
+  }
+
+  onFileDropped($event) {
+    this.prepareFilesList($event);
+  }
+
+  fileBrowseHandler(files): any {
+    this.prepareFilesList(files);
+  }
+
+  prepareFilesList(files: Array<any>) {
+    for (const item of files) {
+      item.progress = 0;
+      this.files.push(item);
+    }
+    this.uploadFilesSimulator(0);
+  }
+
+  uploadFilesSimulator(index: number) {
+    setTimeout(() => {
+      if (index === this.files.length) {
+        return;
+      } else {
+        const progressInterval = setInterval(() => {
+          if (this.files[index].progress === 100) {
+            clearInterval(progressInterval);
+            this.uploadFilesSimulator(index + 1);
+          } else {
+            this.files[index].progress += 5;
+          }
+        }, 200);
+      }
+    }, 1000);
   }
 
 }

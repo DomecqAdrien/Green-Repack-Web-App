@@ -55,10 +55,14 @@
         <div *ngFor="let champ of champs">
             <mat-form-field appearance="fill">
                 <mat-label>{{ champ.libelle }}</mat-label>
-                <input formControlName="carac_{{champ.id}}" class="form-control" matInput>
+                <input formControlName="carac_{{champ.libelle}}" type="{{ champ.unite.type }}" class="form-control" matInput>
+                <span matSuffix>{{champ.unite.abreviation}}</span>
             </mat-form-field>
         </div>
     
+        <!--<div (fileDropped)="onFileDropped($event)">
+            <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+        </div>-->
         <hr>
         <div>
             <button [disabled]="loading" class="btn btn-primary">

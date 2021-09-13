@@ -2,9 +2,12 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Caracteristique } from 'src/app/model/Caracteristique';
 import { Categorie } from 'src/app/model/Categorie';
 import { Dossier } from 'src/app/model/Dossier';
 import { Produit } from 'src/app/model/Produit';
+import { ProduitCaracteristiques } from 'src/app/model/ProduitCaracteristiques';
+import { Unite } from 'src/app/model/Unite';
 
 @Component({
   selector: 'app-sell-detail',
@@ -19,11 +22,11 @@ export class SellDetailComponent implements OnInit {
   id: any;
   dossier: Dossier;
   etats = ['Neuf', 'Peu usé'];
+  statuts = ['En cours', 'Validée', 'Terminée', 'Refusée'];
 
-  desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet tincidunt ante, et consequat metus. Sed eget pharetra ipsum. Sed maximus facilisis augue at congue. Nunc vitae purus ac urna laoreet tristique vel non justo. In volutpat volutpat dapibus. Sed non est non libero venenatis lacinia. Donec eu elit ipsum. Phasellus in pulvinar mauris. Duis aliquam nec felis ac porttitor. Sed porttitor in metus ac porttitor. Nunc vitae efficitur ante. Duis interdum ex auctor, ultricies nisl a, bibendum elit."+
-  "Praesent ullamcorper ipsum odio, eu vehicula tellus fringilla sed. Integer auctor ac nulla ut sagittis. Integer placerat commodo lectus ut vehicula. Nullam volutpat turpis vel rutrum euismod. Sed posuere lacinia elit id blandit. Fusce ultrices velit ac velit convallis consectetur. Mauris ante quam, rhoncus quis gravida non, eleifend eget lacus. Sed dignissim sapien risus, non feugiat felis porta quis."+
-  " Nunc et semper nisl, gravida congue magna. Nunc dignissim lacus neque, eget pretium ipsum cursus vitae. Donec vitae ornare ex, lobortis suscipit risus. Fusce magna ante, porta in pulvinar quis, auctor eu dui. In nulla est, aliquam nec fringilla at, fermentum quis tellus. Praesent cursus lorem nec sapien pellentesque cursus. Sed vel nunc facilisis, aliquet nisl mattis, iaculis est. Quisque ante est, tempus in nisi nec, tristique dapibus sapien. Quisque ultricies turpis mollis ex semper convallis venenatis vitae nibh. Fusce luctus tincidunt magna, vitae fringilla metus ornare at. Ut ultricies nisi leo. Suspendisse tincidunt vestibulum odio, vitae faucibus diam."
-  
+  desc = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet tincidunt ante, et consequat metus. Sed eget pharetra ipsum. Sed maximus facilisis augue at congue. Nunc vitae purus ac urna laoreet tristique vel non justo. In volutpat volutpat dapibus. Sed non est non libero venenatis lacinia. Donec eu elit ipsum. Phasellus in pulvinar mauris. Duis aliquam nec felis ac porttitor. Sed porttitor in metus ac porttitor. Nunc vitae efficitur ante. Duis interdum ex auctor, ultricies nisl a, bibendum elit.' +
+  'Praesent ullamcorper ipsum odio, eu vehicula tellus fringilla sed. Integer auctor ac nulla ut sagittis. Integer placerat commodo lectus ut vehicula. Nullam volutpat turpis vel rutrum euismod. Sed posuere lacinia elit id blandit. Fusce ultrices velit ac velit convallis consectetur. Mauris ante quam, rhoncus quis gravida non, eleifend eget lacus. Sed dignissim sapien risus, non feugiat felis porta quis.' +
+  ' Nunc et semper nisl, gravida congue magna. Nunc dignissim lacus neque, eget pretium ipsum cursus vitae. Donec vitae ornare ex, lobortis suscipit risus. Fusce magna ante, porta in pulvinar quis, auctor eu dui. In nulla est, aliquam nec fringilla at, fermentum quis tellus. Praesent cursus lorem nec sapien pellentesque cursus. Sed vel nunc facilisis, aliquet nisl mattis, iaculis est. Quisque ante est, tempus in nisi nec, tristique dapibus sapien. Quisque ultricies turpis mollis ex semper convallis venenatis vitae nibh. Fusce luctus tincidunt magna, vitae fringilla metus ornare at. Ut ultricies nisi leo. Suspendisse tincidunt vestibulum odio, vitae faucibus diam.';
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +36,7 @@ export class SellDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+
     this.id = this.route.snapshot.paramMap.get('id');
     console.log(this.id);
 
@@ -43,17 +46,19 @@ export class SellDetailComponent implements OnInit {
 
 
     // init dossier
-    const produit = new Produit(this.desc, 'Neuf', 1, [], []);
+    const caracs = [new ProduitCaracteristiques('iphone', new Caracteristique(1, 'Nom', null))];
+    const produit = new Produit(this.desc, 'Iphone 6', 'Neuf', 1, [], []);
     this.dossier = new Dossier('En cours', produit);
 
 
     this.form = this.formBuilder.group({
-      etat: [this.dossier.produit.etat]
+      etat: [this.dossier.produit.etat],
+      statut: [this.dossier.statut]
     });
   }
 
   onSubmit(): any{
-    console.log(this.form)
+    console.log(this.form);
   }
 
 }
