@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SellDetailComponent } from './components/sell/sell-detail/sell-detail.component';
 import { SellFormComponent } from './components/sell/sell-form/sell-form.component';
@@ -12,7 +13,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   // product
-  { path: 'product', component: ProductDetailComponent},
+  { path: 'product/:id', component: ProductDetailComponent},
+  { path: '', component: ProductListComponent},
+
 
   // ventes
   { path: 'ventes', component: SellComponent},

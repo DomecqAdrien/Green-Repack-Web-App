@@ -16,6 +16,7 @@ import { SellCompletedComponent } from './components/sell/sell-completed/sell-co
 import { SellDetailComponent } from './components/sell/sell-detail/sell-detail.component';
 import { SellFormComponent } from './components/sell/sell-form/sell-form.component';
 import { MaterialModule } from './material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MaterialModule } from './material/material.module';
     ReactiveFormsModule,
     NgbModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
 
   ],
   providers: [],

@@ -12,4 +12,12 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  consulter($event: any): any {
+    console.log($event);
+  }
+
+  addToBasket($event: any): any {
+
+  }
+
 }
