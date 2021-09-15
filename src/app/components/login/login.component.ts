@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/alert.service';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,19 +15,30 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
+  returnUrl = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
 
-  ) { }
+  ) {
+    if (loginService.loggedIn()) {
+      console.log('logged');
+      router.navigate(['produits']);
+    }
+  }
 
   ngOnInit(): void {
+    if (this.loginService.loggedIn()) {
+      this.loginService.setIsLogged(true);
+      console.log(this.loginService.isLogged);
+      this.router.navigate(['produits']);
+    }
     this.form = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -46,10 +58,16 @@ export class LoginComponent implements OnInit {
         return;
     }
 
+    console.log(this.form.value);
     this.loading = true;
-    this.userService.login(this.f.username.value, this.f.password.value).then(res => {
+    this.userService.login(this.form.value).then(res => {
+        console.log(res);
+        localStorage.setItem('green-repack-user-email', this.f.email.value);
+        localStorage.setItem('green-repack-user-tk', res.token);
+        this.loginService.setIsLogged(true);
         this.router.navigate([this.returnUrl]);
     }).catch(error => {
+        console.log(error);
         this.alertService.error(error);
         this.loading = false;
     });

@@ -18,9 +18,11 @@ export class UserService extends ApiService {
         });
     }
 
-    public async login(username: string, password: string): Promise<any>{
+    public async login(user: any): Promise<any>{
+        console.log(user);
         return await this.post<any>({
-            url: '/login'
+            url: '/login',
+            data: user
         });
     }
 

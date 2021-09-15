@@ -7,5 +7,6 @@ export class Utilisateur {
     adresse: string;
     codePostal: number;
     ville: string;
+    role: string;
 }
 

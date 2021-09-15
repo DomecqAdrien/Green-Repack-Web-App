@@ -9,7 +9,7 @@ import { NgbCarouselConfig, NgbConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProductDetailComponent implements OnInit {
 
-  id: number;
+  id: any;
   a = '/assets/icon.png';
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
@@ -28,10 +28,9 @@ export class ProductDetailComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.id = params.id;
-      console.log(this.id);
-    });
+    this.id = this.route.snapshot.paramMap.get('id');
+    console.log(this.id);
+
   }
 
 }

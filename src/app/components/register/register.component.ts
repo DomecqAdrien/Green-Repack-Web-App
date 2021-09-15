@@ -66,14 +66,19 @@ export class RegisterComponent implements OnInit {
       if (this.form.invalid) {
           return;
       }
-      this.form.value.date_naissance = this.form.value.date_naissance.format('YYYY-MM-DD');
+
+      const data = this.form.value;
+      data.date_naissance = data.date_naissance.format('YYYY-MM-DD');
+
+      console.log(data);
 
       this.loading = true;
-      this.userService.register(this.form.value).then(res => {
+      this.userService.register(data).then(res => {
         this.alertService.success('Registration successful', { keepAfterRouteChange: true });
         this.router.navigate(['../login'], { relativeTo: this.route });
       }).catch(err => {
-        this.alertService.error(err);
+        console.log(err.message);
+        this.alertService.error(err.response.data.message);
         this.loading = false;
       });
   }

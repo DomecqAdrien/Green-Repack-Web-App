@@ -7,7 +7,17 @@
 }
 
 button {
-    width: 50%;
+    width: 40%;
     font-size: 80%;
     text-align: center;
+    background-color: #EAEAEA;
+    border: 1px black !important;
+}
+
+.button-panier {
+    color: orange;
+}
+
+.button-consulter {
+    color: green;
 }

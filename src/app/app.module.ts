@@ -17,11 +17,14 @@ import { SellDetailComponent } from './components/sell/sell-detail/sell-detail.c
 import { SellFormComponent } from './components/sell/sell-form/sell-form.component';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AlertComponent } from './components/alert/alert.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AlertComponent,
     LoginComponent,
     RegisterComponent,
     ProductListComponent,
@@ -35,12 +38,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]

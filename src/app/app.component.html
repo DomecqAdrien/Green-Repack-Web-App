@@ -6,19 +6,13 @@
     <div fxShow="true" fxHide.lt-md="true">
       <a mat-button routerLink="/" align="left">Green Repack</a>
       <span class="spacing"></span>
-      <a mat-button routerLink="/about-us">About us</a>
-      <a mat-button routerLink="/prices">Prices</a>
-      <a mat-button routerLink="/start-page">Start page</a>
       <a mat-button routerLink="/ventes/new">Vendre</a>
-      <a mat-button routerLink="/login">Se connecter</a>
+      <a *ngIf="!isLogged" mat-button routerLink="/login">Se connecter</a>
+      <a *ngIf="isLogged" mat-button (click)="logout()">Se déconnecter</a>
     </div>
   </mat-toolbar>
 </p>
 
-
-<div class="content" role="main">
-
-
-</div>
+<app-alert></app-alert>
 
 <router-outlet></router-outlet>

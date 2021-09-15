@@ -10,8 +10,8 @@
             Prix €
         </mat-card-content>
         <mat-card-actions>
-            <button id="{{num}}" mat-flat-button color="primary" (click)="consulter($event)">Consulter</button>
-            <button mat-flat-button color="warn" (click)="addToBasket($event)">Ajouter au panier</button>
+            <button mat-flat-button class="button-consulter" (click)="consulter(num)">Consulter</button>
+            <button mat-flat-button class="button-panier" (click)="addToBasket(num)">Ajouter au panier</button>
         </mat-card-actions>
     </mat-card>
         </div>
