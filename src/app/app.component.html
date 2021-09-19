@@ -4,11 +4,13 @@
     <img width="40" alt="Angular Logo" src="assets/icon.png" routerLink="/"/>
     
     <div fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/" align="left">Green Repack</a>
+      <span mat-button routerLink="/">Green Repack</span>
+      <span class="example-spacer"></span>
       <span class="spacing"></span>
-      <a mat-button routerLink="/ventes/new">Vendre</a>
-      <a *ngIf="!isLogged" mat-button routerLink="/login">Se connecter</a>
-      <a *ngIf="isLogged" mat-button (click)="logout()">Se déconnecter</a>
+      <a mat-button routerLink="/ventes/new"><mat-icon>sell</mat-icon> Vendre</a>
+      <a *ngIf="panier.length > 0" mat-button routerLink="/paiement"><mat-icon>shopping_basket</mat-icon> Panier: {{ panier.length }}</a>
+      <a *ngIf="!isLogged" mat-button routerLink="/login"><mat-icon>login</mat-icon> Se connecter</a>
+      <a *ngIf="isLogged" mat-button (click)="logout()"><mat-icon>logout</mat-icon> Se déconnecter</a>
     </div>
   </mat-toolbar>
 </p>

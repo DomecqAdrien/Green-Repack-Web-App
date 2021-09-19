@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LoginService } from '../services/login.service';
+import { CanActivate, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,7 @@ import { LoginService } from '../services/login.service';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private loginService: LoginService,
+    private userService: UserService,
     private router: Router,
   ) { }
 
@@ -17,14 +16,14 @@ export class AuthGuard implements CanActivate {
     return this.getUser();
   }
   getUser(): boolean {
-    if (this.loginService.isTokenExpired()) {
+    if (this.userService.isTokenExpired()) {
       console.log('a');
       localStorage.removeItem('green-repack-user-email');
       localStorage.removeItem('green-repack-user-tk');
       this.router.navigate(['login']);
       return false;
     }
-    if (this.loginService.loggedIn()) {
+    if (this.userService.loggedIn()) {
       console.log('b');
       return true;
     }

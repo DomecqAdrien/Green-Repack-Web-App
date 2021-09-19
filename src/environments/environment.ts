@@ -6,6 +6,8 @@ export const environment = {
   apiUrl: 'http://localhost:8080/api',
   imgurClientId: 'c903889c052c04a',
   imgurClientSecret: '59dfea30904debab43605417477b9898a9499cce',
+  stripePublicKey : 'pk_test_51Jb0YzCMZY53TvJl51bcE8jU7XU8w7Qt5FOLynbpQKvmnxosWLvaze6EnrHPNFJ9TJgDEUkD1pPcWN6lNt9l8PDD000hWDlKMG',
+  StripePrivateKey : 'sk_test_51JZvXHK5at9YaBCkCaaGHP86CtEYVbM32Vn8ZgimP4rlAqSgB2YeiGsLRqQ3kDjWORBjloNLOkh8yf6m9s9POabN00cPmfdeUU',
   production: false
 };
 

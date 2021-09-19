@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from './services/login.service';
+import { Article } from './model/Article';
+import { Produit } from './model/Produit';
+import { PanierService } from './services/panier.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,24 +13,29 @@ import { LoginService } from './services/login.service';
 export class AppComponent implements OnInit{
 
   isLogged: boolean;
+  panier: Article[] = [];
 
   constructor(
     private router: Router,
-    private loginService: LoginService,
+    private userService: UserService,
+    private panierService: PanierService
   ) {}
 
 
   ngOnInit(): void {
-    if (this.loginService.loggedIn()) {
-      this.loginService.setIsLogged(true);
-      //this.isLogged = true;
+    if (this.userService.loggedIn()) {
+      this.userService.setIsLogged(true);
+      // this.panier.push(new Produit('a','a','a',1,[],[]))
     }
-    this.loginService.isLogged.subscribe(isLogged => this.isLogged = isLogged);
-    //console.log(this.isLogged);
+    this.panierService.setPanier();
+    this.userService.isLogged.subscribe(isLogged => this.isLogged = isLogged);
+    this.panierService.panier.subscribe(panier => this.panier = panier);
+    console.log(this.panier.length);
   }
 
   logout(): void{
-    this.loginService.logout();
-    //this.router.navigate(['logout']);
+    this.userService.logout();
+    this.panierService.resetPanier();
+    this.router.navigate(['login']);
   }
 }

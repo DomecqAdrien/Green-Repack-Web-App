@@ -4,10 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SellComponent } from './components/sell/sell.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +19,12 @@ import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AlertComponent } from './components/alert/alert.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PaiementComponent } from './components/paiement/paiement.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { env } from 'process';
+import { environment } from 'src/environments/environment';
+import { SuccessComponent } from './components/paiement/success/success.component';
+import { ErrorComponent } from './components/paiement/error/error.component';
 
 
 @NgModule({
@@ -33,7 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     SellCompletedComponent,
     SellNewComponent,
     SellDetailComponent,
-    SellFormComponent
+    SellFormComponent,
+    PaiementComponent,
+    SuccessComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +52,8 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxStripeModule.forRoot(environment.stripePublicKey)
   ],
   providers: [],
   bootstrap: [AppComponent]

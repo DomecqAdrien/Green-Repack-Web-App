@@ -8,6 +8,7 @@ export class Produit {
     id?: number;
     nom: string;
     description?: string;
+    prix: string = '10';
     etat: string;
     statut: string;
     categorie: number;
@@ -16,15 +17,16 @@ export class Produit {
     images: Image[];
 
     constructor(
-        description: string, 
+        description: string,
         nom: string,
-        etat: string, 
-        categorie: number, 
-        pc: ProduitCaracteristiques[], 
+        etat: string,
+        categorie: number,
+        pc: ProduitCaracteristiques[],
         images: Image[]
     ){
         this.nom = nom;
         this.description = description;
+        this.prix = '10';
         this.statut = 'En attente';
         this.etat = etat;
         this.categorie = categorie;

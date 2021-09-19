@@ -38,7 +38,7 @@ export class ApiService {
         this.errorHandler = errorHandler;
 
         this.axiosClient = axios.create({
-            timeout: 3000,
+            timeout: 10000,
             headers : {
             }
         });
