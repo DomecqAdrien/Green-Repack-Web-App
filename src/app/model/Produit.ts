@@ -6,30 +6,29 @@ import { ProduitCaracteristiques } from './ProduitCaracteristiques';
 
 export class Produit {
     id?: number;
-    nom: string;
+    titre: string;
     description?: string;
-    prix: string = '10';
+    prix: number;
     etat: string;
     statut: string;
-    categorie: number;
+    categorieId: number;
     depot: Depot;
     produitCaracteristiques: ProduitCaracteristiques[];
     images: Image[];
 
     constructor(
         description: string,
-        nom: string,
+        titre: string,
         etat: string,
         categorie: number,
         pc: ProduitCaracteristiques[],
         images: Image[]
     ){
-        this.nom = nom;
+        this.titre = titre;
         this.description = description;
-        this.prix = '10';
         this.statut = 'En attente';
         this.etat = etat;
-        this.categorie = categorie;
+        this.categorieId = categorie;
         this.produitCaracteristiques = pc;
         this.images = images;
     }

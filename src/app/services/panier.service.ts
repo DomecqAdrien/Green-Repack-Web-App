@@ -15,23 +15,32 @@ export class PanierService {
   addToBasket(produit: Produit): void {
     const article: Article = {
       id : produit.id,
-      nom : produit.description,
+      nom : produit.titre,
       prix : produit.prix
     };
 
     const storage = this.getPanier();
-    storage.push(article);
-    this.storePanier(storage);
-    console.log(localStorage);
-    this.setPanier();
+    if (!this.checkIfInPanier(article.id)){
+      storage.push(article);
+      this.storePanier(storage);
+      console.log(localStorage);
+      this.setPanier();
+    }
+  }
+
+  checkIfInPanier(id: number): boolean {
+    const storage = this.getPanier();
+    return storage.some(a => a.id === id);
   }
 
   hasPanier(): boolean {
     return this.getPanier() != null;
   }
 
-  removeFromBasket(): void {
-
+  removeFromBasket(id: number): void {
+    const storage = this.getPanier();
+    this.storePanier(storage.filter(a => a.id !== id));
+    this.setPanier();
   }
 
   setPanier(): void {

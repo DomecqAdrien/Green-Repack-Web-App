@@ -4,10 +4,11 @@ export class ProduitCaracteristiques {
     id: number;
     valeur: string;
     caracteristique: Caracteristique;
+    caracteristiqueId: number;
     produitId: number;
 
-    constructor(valeur: string, caracteristique: Caracteristique){
+    constructor(caracteristiqueId: number, valeur: string){
         this.valeur = valeur;
-        this.caracteristique = caracteristique;
+        this.caracteristiqueId = caracteristiqueId;
     }
 }

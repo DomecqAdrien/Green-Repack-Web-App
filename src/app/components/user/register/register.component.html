@@ -32,15 +32,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="date_naissance">Date de naissance</label>
-                <input formControlName="date_naissance" class="form-control" matInput [matDatepicker]="picker">
+                <label for="dateNaissance">Date de naissance</label>
+                <input formControlName="dateNaissance" class="form-control" matInput [matDatepicker]="picker">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-
-                <!--<input type="text" formControlName="date_naissance" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.date_naissance.errors }" />
-                <div *ngIf="submitted && f.date_naissance.errors" class="invalid-feedback">
-                    <div *ngIf="f.date_naissance.errors.required">Username est requis</div>
-                </div>-->
             </div>
             <div class="form-group">
                 <label for="adresse">Adresse</label>
@@ -50,10 +45,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="code_postal">Code Postal</label>
-                <input type="text" formControlName="code_postal" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.code_postal.errors }" />
-                <div *ngIf="submitted && f.code_postal.errors" class="invalid-feedback">
-                    <div *ngIf="f.code_postal.errors.required">Code Postal est requis</div>
+                <label for="codePostal">Code Postal</label>
+                <input type="text" formControlName="codePostal" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.codePostal.errors }" />
+                <div *ngIf="submitted && f.codePostal.errors" class="invalid-feedback">
+                    <div *ngIf="f.codePostal.errors.required">Code Postal est requis</div>
                 </div>
             </div>
             <div class="form-group">

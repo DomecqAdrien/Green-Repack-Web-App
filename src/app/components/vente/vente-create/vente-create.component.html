@@ -1,0 +1,81 @@
+<div class="container">
+    <h1>Vendre un objet</h1>
+    <form [formGroup]="form" (ngSubmit)=onSubmit()>
+
+        <hr>
+        <h2>Informations générales</h2>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Catégorie</mat-label>
+                <mat-select formControlName="categorie" (selectionChange)="selectCategory($event)">
+                <p *ngFor="let categorie of categories">
+                    <mat-option value="{{ categorie.id }}">{{ categorie.libelle }}</mat-option>
+                </p>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="isCategorySelected">
+            <mat-form-field appearance="fill">
+                <mat-label>Titre</mat-label>
+                <mat-select formControlName="titre">
+                    <mat-option>
+                        <ngx-mat-select-search formControlName="marqueFilter" placeholderLabel="Rechercher..." 
+                        noEntriesFoundLabel="Pas de marque trouvée">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <p *ngFor="let titre of filteredPrixVente | async">
+                        <mat-option value="{{ titre.titre }}">{{ titre.titre }}</mat-option>
+                    </p>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>État</mat-label>
+                <mat-select  formControlName="etat">
+                <p *ngFor="let etat of etats">
+                    <mat-option value="{{ etat }}">{{ etat }}</mat-option>
+                </p>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" matInput></textarea>
+            </mat-form-field>
+        </div>
+
+        <hr>
+        <h2>Caractéristiques</h2>
+        <div *ngFor="let champ of caracteristiques">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ champ.libelle }}</mat-label>
+                <input formControlName="carac_{{champ.id}}" type="{{ champ.unite.type }}" class="form-control" matInput>
+                <span matSuffix>{{champ.unite.abreviation}}</span>
+            </mat-form-field>
+        </div>
+    
+        <hr>
+        <h2>Images</h2>
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+
+        <hr>
+        <div>
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Soumettre
+            </button>
+        </div>
+    </form>
+    
+</div>

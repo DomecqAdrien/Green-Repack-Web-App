@@ -1,0 +1,31 @@
+<div class="container">
+    <mat-form-field appearance="fill">
+        <mat-label>Catégorie</mat-label>
+        <mat-select (selectionChange)="selectCategory($event)">
+        <p *ngFor="let categorie of categories">
+            <mat-option value="{{ categorie.id }}">{{ categorie.libelle }}</mat-option>
+        </p>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="categorie">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="categorie"> Catégorie </mat-header-cell>
+            <mat-cell *matCellDef="let carac"> {{ carac.categorie }} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="libelle">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="libelle"> Libellé </mat-header-cell>
+            <mat-cell *matCellDef="let carac"> {{ carac.libelle }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="unite">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="unite"> Unité </mat-header-cell>
+            <mat-cell *matCellDef="let carac"> {{ carac.unite.libelle }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

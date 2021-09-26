@@ -1,0 +1,16 @@
+<div class="container">
+    <mat-tab-group *ngIf="isLoaded">
+      <mat-tab label="Catégories">
+        <app-manage-categories [categories]="categories"></app-manage-categories>
+      </mat-tab>
+      <mat-tab label="Caractéristiques">
+        <app-manage-caracteristiques [categories]="categories"></app-manage-caracteristiques>
+      </mat-tab>
+      <mat-tab label="Unités">
+        <app-manage-unites></app-manage-unites>
+      </mat-tab>
+      <mat-tab label="Prix par défaut">
+        <app-manage-prix [categories]="categories"></app-manage-prix>
+      </mat-tab>
+    </mat-tab-group>
+  </div>

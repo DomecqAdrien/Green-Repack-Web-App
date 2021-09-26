@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from 'src/app/alert.service';
+import { AlertService } from 'src/app/services/alert.service';
 import { Utilisateur } from 'src/app/model/Utilisateur';
 import { UserService } from 'src/app/services/user.service';
 
@@ -50,8 +50,8 @@ export class RegisterComponent implements OnInit {
           password: ['', [Validators.required, Validators.minLength(6)]],
           // password_check: ['', Validators.required],
           adresse: ['', Validators.required],
-          date_naissance: ['', Validators.required],
-          code_postal: ['', Validators.required],
+          dateNaissance: ['', Validators.required],
+          codePostal: ['', Validators.required],
           ville: ['', Validators.required],
       });
   }
@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
       }
 
       const data = this.form.value;
-      data.date_naissance = data.date_naissance.format('YYYY-MM-DD');
+      data.dateNaissance = data.dateNaissance.format('YYYY-MM-DD');
 
       console.log(data);
 

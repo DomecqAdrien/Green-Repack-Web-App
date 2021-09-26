@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AlertService } from 'src/app/alert.service';
+import { AlertService } from 'src/app/services/alert.service';
 import { Alert, AlertType } from 'src/app/model/Alert';
 
 
@@ -79,8 +79,6 @@ export class AlertComponent implements OnInit {
         if (!alert) {
             return null;
         }
-
-
         const classes = ['alert', 'alert-dismissable', 'mt-4', 'container'];
 
         const alertTypeClass = {

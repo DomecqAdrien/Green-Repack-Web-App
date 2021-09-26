@@ -13,7 +13,7 @@ export class PaiementService extends ApiService {
   }
 
   public async checkout(data: any): Promise<string> {
-    return await this.post<any>({
+    return await this.postApi<any>({
         url: '/checkout',
         data
     });

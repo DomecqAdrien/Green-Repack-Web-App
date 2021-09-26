@@ -1,9 +1,32 @@
-<div class="content">
-    <h2>Panier</h2>
-    <hr>
-    
-    <hr>
-    <button (click)="checkout()">
-        GO TO CHECKOUT
-    </button>
+<div class="container" *ngIf="isLoaded">
+    <div *ngIf="articles.length > 0">
+        <h2>Panier</h2>
+        <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="titre">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="titre"> Titre </mat-header-cell>
+                <mat-cell *matCellDef="let article"> {{ article.nom }} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="prix">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="prix"> Prix </mat-header-cell>
+                <mat-cell *matCellDef="let article"> {{ article.prix }}€</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let article"><button mat-raised-button color="warn" (click)="removeFromPanier(article.id)">Supprimer</button></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <hr>
+        total: {{ total }}€
+        <button mat-raised-button color="primary" (click)="checkout()">Checkout</button>
+    </div>
+    <div *ngIf="articles.length === 0">
+        <h2>Vous n'avez aucun article dans le panier !</h2>
+    </div>
 </div>

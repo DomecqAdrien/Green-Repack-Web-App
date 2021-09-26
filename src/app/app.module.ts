@@ -6,25 +6,40 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
-import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SellComponent } from './components/sell/sell.component';
+import { ProductListComponent } from './components/produit/product-list/product-list.component';
+import { ProductDetailComponent } from './components/produit/product-detail/product-detail.component';
+import { SellComponent } from './components/manage/manage-ventes/manage-ventes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SellNewComponent } from './components/sell/sell-new/sell-new.component';
-import { SellCompletedComponent } from './components/sell/sell-completed/sell-completed.component';
-import { SellDetailComponent } from './components/sell/sell-detail/sell-detail.component';
-import { SellFormComponent } from './components/sell/sell-form/sell-form.component';
+import { SellCompletedComponent } from './components/manage/manage-ventes/ventes-terminees/ventes-terminees.component';
+import { SellDetailComponent } from './components/manage/manage-ventes/vente-detail/vente-detail.component';
+import { SellFormComponent } from './components/vente/vente-create/vente-create.component';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AlertComponent } from './components/alert/alert.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PaiementComponent } from './components/paiement/paiement.component';
 import { NgxStripeModule } from 'ngx-stripe';
-import { env } from 'process';
 import { environment } from 'src/environments/environment';
 import { SuccessComponent } from './components/paiement/success/success.component';
 import { ErrorComponent } from './components/paiement/error/error.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ManageComponent } from './components/manage/manage.component';
+import { ManageCaracteristiquesComponent } from './components/manage/manage-caracteristiques/manage-caracteristiques.component';
+import { ManageUnitesComponent } from './components/manage/manage-unites/manage-unites.component';
+import { ManagePrixComponent } from './components/manage/manage-prix/manage-prix.component';
+import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import { VentesEnCoursComponent } from './components/manage/manage-ventes/ventes-en-cours/ventes-en-cours.component';
+import { VentesAnnuleesComponent } from './components/manage/manage-ventes/ventes-annulees/ventes-annulees.component';
+import { ConfirmComponent } from './components/dialog/confirm/confirm.component';
+import { ManageCategoriesComponent } from './components/manage/manage-categories/manage-categories.component';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { ManageTechniciensComponent } from './components/manage/manage-techniciens/manage-techniciens.component';
+import { CreateTechnicienComponent } from './components/dialog/create-technicien/create-technicien.component';
+import { CreateCaracteristiqueComponent } from './components/dialog/create-caracteristique/create-caracteristique.component';
+import { CreateUniteComponent } from './components/dialog/create-unite/create-unite.component';
+import { CreatePrixComponent } from './components/dialog/create-prix/create-prix.component';
+import { CreateCategorieComponent } from './components/dialog/create-categorie/create-categorie.component';
 
 
 @NgModule({
@@ -37,23 +52,41 @@ import { ErrorComponent } from './components/paiement/error/error.component';
     ProductDetailComponent,
     SellComponent,
     SellCompletedComponent,
-    SellNewComponent,
+    VentesEnCoursComponent,
     SellDetailComponent,
     SellFormComponent,
     PaiementComponent,
     SuccessComponent,
-    ErrorComponent
+    ErrorComponent,
+    ManageUnitesComponent,
+    ManageCaracteristiquesComponent,
+    ManageComponent,
+    ManageCaracteristiquesComponent,
+    ManageUnitesComponent,
+    ManagePrixComponent,
+    UserSettingsComponent,
+    VentesAnnuleesComponent,
+    ConfirmComponent,
+    ManageCategoriesComponent,
+    ManageTechniciensComponent,
+    CreateTechnicienComponent,
+    CreateCaracteristiqueComponent,
+    CreateUniteComponent,
+    CreatePrixComponent,
+    CreateCategorieComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule,
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    NgxStripeModule.forRoot(environment.stripePublicKey)
+    NgxStripeModule.forRoot(environment.stripePublicKey),
+    MatCarouselModule.forRoot(),
+    NgxDropzoneModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

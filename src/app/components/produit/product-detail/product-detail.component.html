@@ -1,0 +1,32 @@
+<div class="content" *ngIf="isLoaded">
+  <div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+    <div fxFlex="60%">
+      <mat-carousel timings="250ms ease-in" [autoplay]="false" [interval]="5000" color="accent" maxWidth="auto"
+      [proportion]="40" [slides]="images.length" [loop]="true" [hideArrows]="false" [hideIndicators]="true"
+      [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
+      <mat-carousel-slide #matCarouselSlide *ngFor="let image of produit.images; let i = index" [image]="image.url"
+        overlayColor="#00000040" [hideOverlay]="false"></mat-carousel-slide>
+    </mat-carousel>
+     <!--<hr style="background-color:black" />  
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let image of images">
+          <img src="{{ image }}" alt="Delhi Metro">  
+        </ng-template>
+      </ngb-carousel>-->
+    </div>
+    <div fxFlex="40%">
+      <div class="product-description">
+        <h1>{{produit.titre}}</h1>
+        <p>{{produit.description}}</p>
+      </div>
+  
+  
+      <div class="product-price">
+        <span>{{produit.prix}} €</span>
+        <a class="cart-btn" (click)="addToPanier()">Ajouter au panier</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>

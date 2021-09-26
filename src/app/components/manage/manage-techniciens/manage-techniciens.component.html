@@ -1,0 +1,28 @@
+<div class="container">
+    <mat-table *ngIf="isLoaded" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="nom">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="nom"> Nom </mat-header-cell>
+            <mat-cell *matCellDef="let technicien"> {{ technicien.nom }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="prenom">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="prenom"> Prénom </mat-header-cell>
+            <mat-cell *matCellDef="let technicien"> {{ technicien.prenom }} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="email"> E-mail </mat-header-cell>
+            <mat-cell *matCellDef="let technicien"> {{ technicien.email }}</mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let technicien"><button mat-raised-button color="warn" (click)="removeTechnicien(technicien)">Supprimer</button></mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <button mat-raised-button color="warn" (click)="addTechnicien()">Ajouter un technicien</button>
+</div>

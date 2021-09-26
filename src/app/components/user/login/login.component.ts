@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertService } from 'src/app/alert.service';
+import { AlertService } from 'src/app/services/alert.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.submitted = true;
 
     // reset alerts on submit
@@ -56,19 +56,23 @@ export class LoginComponent implements OnInit {
         return;
     }
 
-    console.log(this.form.value);
-    this.loading = true;
-    this.userService.login(this.form.value).then(res => {
-        console.log(res);
-        localStorage.setItem('green-repack-user-email', this.f.email.value);
-        localStorage.setItem('green-repack-user-tk', res.token);
-        this.userService.setIsLogged(true);
-        this.router.navigate([this.returnUrl]);
-    }).catch(error => {
-        console.log(error);
-        this.alertService.error(error);
-        this.loading = false;
-    });
+    try {
+      console.log(this.form.value);
+      this.loading = true;
+      const res = await this.userService.login(this.form.value);
+      if (res.error){
+        throw res.error;
+      }
+      console.log(res);
+      localStorage.setItem('green-repack-user-email', this.f.email.value);
+      localStorage.setItem('green-repack-user-tk', res.token);
+      this.userService.setIsLogged(true);
+      this.router.navigate([this.returnUrl]);
+    }catch (error) {
+      console.log(error);
+      this.alertService.error(error);
+      this.loading = false;
+    }
   }
 
 }

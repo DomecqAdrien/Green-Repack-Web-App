@@ -17,18 +17,15 @@ export class AuthGuard implements CanActivate {
   }
   getUser(): boolean {
     if (this.userService.isTokenExpired()) {
-      console.log('a');
       localStorage.removeItem('green-repack-user-email');
       localStorage.removeItem('green-repack-user-tk');
       this.router.navigate(['login']);
       return false;
     }
     if (this.userService.loggedIn()) {
-      console.log('b');
       return true;
     }
     else{
-      console.log('c');
       this.router.navigate(['login']);
       return false;
     }

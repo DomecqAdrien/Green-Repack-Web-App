@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { loadStripe } from '@stripe/stripe-js';
 import { StripeService } from 'ngx-stripe';
+import { Article } from 'src/app/model/Article';
 import { PaiementService } from 'src/app/services/paiement.service';
 import { PanierService } from 'src/app/services/panier.service';
 import { environment } from 'src/environments/environment';
@@ -14,6 +16,11 @@ import { environment } from 'src/environments/environment';
 export class PaiementComponent implements OnInit {
 
   stripePromise = loadStripe(environment.stripePublicKey);
+  articles: Article[] = [];
+  dataSource = new MatTableDataSource<Article>([]);
+  isLoaded = false;
+  displayedColumns = ['titre', 'prix', 'action'];
+  total: number;
 
   constructor(
     private paiementService: PaiementService,
@@ -22,9 +29,30 @@ export class PaiementComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getPanier();
+    this.isLoaded = true;
+  }
+
+  getPanier(): void {
+    this.articles = this.panierService.getPanier();
+    this.dataSource = new MatTableDataSource(this.articles);
+    this.calculTotal();
+  }
+
+  calculTotal(): void {
+    this.total = 0;
+    this.articles.forEach(article => this.total += article.prix);
+  }
+
+  removeFromPanier(articleId: number): void {
+    this.panierService.removeFromBasket(articleId);
+    this.getPanier();
   }
 
   async checkout(): Promise<void> {
+    if (this.articles === []) {
+      return;
+    }
     try {
       const articles =  this.panierService.getPanier();
       const ids: number[] = [];
@@ -36,5 +64,4 @@ export class PaiementComponent implements OnInit {
       console.log(err);
     }
   }
-
 }

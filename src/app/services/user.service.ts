@@ -21,7 +21,7 @@ export class UserService extends ApiService {
   }
 
   public async register(user: any): Promise<any> {
-    return await this.post<any>({
+    return await this.postApi<any>({
       url: '/user',
       data: user
     });
@@ -29,9 +29,34 @@ export class UserService extends ApiService {
 
   public async login(user: any): Promise<any>{
     console.log(user);
-    return await this.post<any>({
+    return await this.postApi<any>({
       url: '/login',
       data: user
+    });
+  }
+
+  public async getUser(id: number): Promise<Utilisateur> {
+    return await this.getApi<Utilisateur>({
+      url: '/user/' + id
+    });
+  }
+
+  public async deleteUser(id: number): Promise<any> {
+    return await this.deleteApi<any>({
+      url: '/user/' + id
+    });
+  }
+
+  public async getTechniciens(): Promise<Utilisateur[]> {
+    return await this.getApi<Utilisateur[]>({
+      url: '/users/technicien'
+    });
+  }
+
+  public async createTechnicien(technicien: Utilisateur): Promise<any> {
+    return await this.postApi<any>({
+      url: '/create-technicien',
+      data: technicien
     });
   }
 
@@ -83,7 +108,6 @@ export class UserService extends ApiService {
   }
 
   isTokenExpired(token?: string): boolean {
-    console.log('a');
     if (!token) { token = this.getToken(); }
     if (!token) { return true; }
 
