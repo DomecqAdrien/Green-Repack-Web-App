@@ -1,1 +1,15 @@
-<p>manage-categories works!</p>
+<div class="container">
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="libelle">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="libelle"> Libellé </mat-header-cell>
+            <mat-cell *matCellDef="let prix"> {{ prix.libelle }} </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <button mat-raised-button color="warn" (click)="addCategorie()">Ajouter un technicien</button>
+</div>
+

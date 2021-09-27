@@ -1,4 +1,6 @@
 import { ErrorHandler, Injectable } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { CreateCategorieComponent } from '../components/dialog/create-categorie/create-categorie.component';
 import { PrixVente } from '../model/PrixVente';
 import { Produit } from '../model/Produit';
 import { Unite } from '../model/Unite';
@@ -9,6 +11,7 @@ import { ApiService } from './api/api.service';
   providedIn: 'root'
 })
 export class ProduitService extends ApiService{
+  
 
   constructor(errorHandler: ErrorHandler) {
     super(errorHandler);
@@ -37,6 +40,13 @@ export class ProduitService extends ApiService{
   public async getCategories(): Promise<any> {
     return await this.getApi<any>({
       url: '/categories'
+    });
+  }
+
+  public async createCategorie(libelle: string) {
+    return await this.postApi<any>({
+      url: '/categorie',
+      data: {libelle}
     });
   }
 

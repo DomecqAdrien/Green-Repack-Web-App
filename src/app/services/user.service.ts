@@ -76,11 +76,15 @@ export class UserService extends ApiService {
   }
 
   isAdmin(): boolean {
-    return this.userRole !== 'ROLE_ADMIN';
+    return this.userRole !== 'Administrateur';
   }
 
   isTechnicien(): boolean {
-    return this.userRole === 'ROLE_TECHNICIEN';
+    return this.userRole === 'Technicien';
+  }
+
+  isMarchand(): boolean {
+    return this.userRole === 'Marchand';
   }
 
   getEmail(): string {

@@ -1,5 +1,5 @@
 <div class="card">
-    <h4 class="card-header">Register</h4>
+    <h4 class="card-header">Créer</h4>
     <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
@@ -61,7 +61,7 @@
             <div class="form-group">
                 <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Register
+                    Créer
                 </button>
                 <a routerLink="../login" class="btn btn-link">Cancel</a>
             </div>
