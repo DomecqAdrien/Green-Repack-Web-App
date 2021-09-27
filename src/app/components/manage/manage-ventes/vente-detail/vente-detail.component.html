@@ -77,6 +77,7 @@
                     <ng-container matColumnDef="colisId">
                         <mat-header-cell *matHeaderCellDef mat-sort-header="colisId"> Colis </mat-header-cell>
                         <mat-cell *matCellDef="let offre"> {{ offre.colisId }} </mat-cell>
+                        <mat-cell *matCellDef="let offre" ngIf="offre.colisId !== null"><button mat-raised-button color="warn" (click)="downloadColissimo()">Supprimer</button></mat-cell>
                     </ng-container>
             
                     <mat-header-row *matHeaderRowDef="displayedColumnsOffres"></mat-header-row>

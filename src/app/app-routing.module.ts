@@ -10,7 +10,7 @@ import { RegisterComponent } from './components/user/register/register.component
 import { SellDetailComponent } from './components/manage/manage-ventes/vente-detail/vente-detail.component';
 import { SellFormComponent } from './components/vente/vente-create/vente-create.component';
 import { SellComponent } from './components/manage/manage-ventes/manage-ventes.component';
-import { AuthGuard } from './guard/auth.guard.service';
+import { AuthGuard } from './services/guard/auth.guard.service';
 import { ManageUnitesComponent } from './components/manage/manage-unites/manage-unites.component';
 import { ManageCaracteristiquesComponent } from './components/manage/manage-caracteristiques/manage-caracteristiques.component';
 import { ManageComponent } from './components/manage/manage.component';

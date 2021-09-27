@@ -17,6 +17,18 @@ export class VenteService extends ApiService {
     });
   }
 
+  public async getVentesAnnulees(): Promise<Vente[]> {
+    return await this.getApi({
+      url: '/ventes/annule'
+    });
+  }
+
+  public async getVentesTerminees(): Promise<Vente[]> {
+    return await this.getApi({
+      url: '/ventes/termine'
+    });
+  }
+
   public async getVenteById(id: number): Promise<Vente> {
     return await this.getApi({
       url: '/vente/infos/' + id

@@ -62,4 +62,8 @@ export class SellDetailComponent implements OnInit {
     console.log(this.form);
   }
 
+  downloadColissimo(): any {
+    //TODO: file download
+  }
+
 }
