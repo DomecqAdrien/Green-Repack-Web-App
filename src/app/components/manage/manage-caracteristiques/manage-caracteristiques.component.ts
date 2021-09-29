@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Caracteristique } from 'src/app/model/Caracteristique';
 import { Categorie } from 'src/app/model/Categorie';
+import { Unite } from 'src/app/model/Unite';
 import { ProduitService } from 'src/app/services/produit.service';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { CreateCaracteristiqueComponent } from '../../dialog/create-caracteristique/create-caracteristique.component'
 
 @Component({
   selector: 'app-manage-caracteristiques',
@@ -14,6 +16,7 @@ import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 export class ManageCaracteristiquesComponent implements OnInit {
 
   @Input() categories: Categorie[];
+  unites: Unite[];
   displayedColumns: string[] = ['categorie', 'libelle', 'unite'];
   dataSource = new MatTableDataSource<Caracteristique>([]);
   allCaracs: Caracteristique[] = [];
@@ -35,6 +38,7 @@ export class ManageCaracteristiquesComponent implements OnInit {
       }
       this.allCaracs.push(...cat.caracteristiques);
     }
+    this.unites = await this.produitService.getUnites();
     this.dataSource = new MatTableDataSource(this.allCaracs);
   }
 
@@ -58,6 +62,27 @@ export class ManageCaracteristiquesComponent implements OnInit {
         this.produitService.deleteCaracteristique(carac.id);
       }
     });
+  }
+  async addCaracteristique(): Promise<void> {
+    const carac = await this.dialog.open(CreateCaracteristiqueComponent, {
+      width: '30%',
+      height: '20%',
+      data: {
+        categories: this.categories,
+        unites: this.unites
+      }
+    }).afterClosed().toPromise();
+    console.log(carac)
+    if (carac !== undefined) {
+      const caracToCreate = new Caracteristique()
+      caracToCreate.libelle= carac.libelle
+      caracToCreate.uniteId = parseInt(carac.unite)
+      caracToCreate.categorieId = parseInt(carac.categorie)
+      console.log(caracToCreate)
+      const aa = await this.produitService.createCaracteristique(caracToCreate);
+      console.log(aa);
+      this.getData()
+    }
   }
 
 }

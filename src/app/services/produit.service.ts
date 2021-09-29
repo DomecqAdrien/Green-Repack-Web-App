@@ -1,6 +1,7 @@
 import { ErrorHandler, Injectable } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateCategorieComponent } from '../components/dialog/create-categorie/create-categorie.component';
+import { Caracteristique } from '../model/Caracteristique';
 import { PrixVente } from '../model/PrixVente';
 import { Produit } from '../model/Produit';
 import { Unite } from '../model/Unite';
@@ -48,6 +49,27 @@ export class ProduitService extends ApiService{
       url: '/categorie',
       data: {libelle}
     });
+  }
+
+  public async createCaracteristique(carac: Caracteristique): Promise<any>{
+    return await this.postApi<any>({
+      url: '/caracteristique_tech',
+      data: carac
+    })
+  }
+
+  public async createUnite(unite: Unite): Promise<any>{
+    return await this.postApi<any>({
+      url: '/unite',
+      data: unite
+    })
+  }
+
+  public async createPrixVente(prixVente: PrixVente): Promise<any>{
+    return await this.postApi<any>({
+      url: '/prix_vente',
+      data: prixVente
+    })
   }
 
   public async getCaracteristiques(): Promise<any> {

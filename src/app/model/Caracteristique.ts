@@ -5,4 +5,6 @@ export class Caracteristique {
     libelle: string;
     unite: Unite;
     categorie: string;
+    uniteId: number;
+    categorieId: number;
 }

@@ -24,6 +24,13 @@ export class UserService extends ApiService {
     });
   }
 
+  public async updateUser(email: string, user: Utilisateur): Promise<any>{
+    return await this.putApi<Utilisateur>({
+      url: '/user/' + email,
+      data: user
+    });
+  }
+
   public async login(user: any): Promise<any>{
     console.log(user);
     return await this.postApi<any>({
@@ -32,9 +39,9 @@ export class UserService extends ApiService {
     });
   }
 
-  public async getUser(id: number): Promise<Utilisateur> {
+  public async getUser(email: String): Promise<Utilisateur> {
     return await this.getApi<Utilisateur>({
-      url: '/user/' + id
+      url: '/user/' + email
     });
   }
 
@@ -57,13 +64,20 @@ export class UserService extends ApiService {
     });
   }
 
+  public async getUsersByRole(role: string): Promise<any> {
+    return await this.getApi<any>({
+      url: '/users/' + role
+    });
+  }
+
   setIsLogged(isLogged: boolean): any {
       this.isLogged.next(isLogged);
-      this.userRole = this.getRole();
+      if(isLogged){
+        this.userRole = this.getRole();
+      }
   }
 
   logout(): any {
-    localStorage.removeItem('green-repack-user-info');
     localStorage.removeItem('green-repack-user-email');
     localStorage.removeItem('green-repack-user-tk');
     sessionStorage.clear();

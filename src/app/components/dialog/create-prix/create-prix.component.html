@@ -1,1 +1,32 @@
-<p>create-prix works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Titre</mat-label>
+            <input formControlName="titre" type="text" class="form-control" matInput>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Prix</mat-label>
+            <input formControlName="prix" type="number" class="form-control" matInput>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Catégories</mat-label>
+            <mat-select  formControlName="categorie">
+            <p *ngFor="let categorie of categories">
+                <mat-option value="{{ categorie.id }}">{{ categorie.libelle }}</mat-option>
+            </p>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary">
+            Créer
+        </button>
+        <a class="btn btn-link" (click)="closeDialog()">Cancel</a>
+    </div>
+</form>

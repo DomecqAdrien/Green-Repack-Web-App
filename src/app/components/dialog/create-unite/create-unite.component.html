@@ -1,1 +1,32 @@
-<p>create-unite works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Libellé</mat-label>
+            <input formControlName="libelle" type="text" class="form-control" matInput>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Abréviation</mat-label>
+            <input formControlName="abreviation" type="text" class="form-control" matInput>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Type</mat-label>
+            <mat-select  formControlName="type">
+            <p *ngFor="let type of types">
+                <mat-option value="{{ type }}">{{ type }}</mat-option>
+            </p>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary">
+            Créer
+        </button>
+        <a class="btn btn-link" (click)="closeDialog()">Cancel</a>
+    </div>
+</form>

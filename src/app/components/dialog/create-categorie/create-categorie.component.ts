@@ -14,7 +14,7 @@ export class CreateCategorieComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<CreateTechnicienComponent>
+    private dialogRef: MatDialogRef<CreateCategorieComponent>
   ) {
     this.form = this.formBuilder.group({
       libelle: ['', Validators.required]

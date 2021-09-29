@@ -1,30 +1,32 @@
-<div class="container">
+<div class="container" *ngIf="isLoaded">
     <mat-tab-group>
         <mat-tab label="Informations de compte">
-            <div class="p-3 py-5">
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Prénom</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-6"><label class="labels">Nom</label><input type="text" class="form-control" value=""></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-12"><label class="labels">Numéro de téléphone</label><input type="text" class="form-control"value=""></div>
-                    <div class="col-md-12"><label class="labels">Adresse</label><input type="text" class="form-control"value=""></div>
-                    <div class="col-md-12"><label class="labels">Code postal</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-12"><label class="labels">Ville</label><input type="text" class="form-control"value=""></div>
-                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" value=""></div>
-                </div>
-                <hr>
-                <h3>Changer le mot de passe</h3>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                </div>
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="button">Sauvegarder</button>
-                </div>
+            <div *ngIf="userInfos.role == 'Utilisateur'">
+                <button mat-raised-button color="primary" (click)="becomeMarchand()">Devenir marchand</button>
             </div>
-
+            <form [formGroup]="form">
+                <div class="p-3 py-5">
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Prénom</label><input formControlName="prenom" type="text" class="form-control" ></div>
+                        <div class="col-md-6"><label class="labels">Nom</label><input formControlName="nom" type="text" class="form-control"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Email</label><input formControlName="email" type="text" class="form-control" ></div>
+                        <div class="col-md-12"><label class="labels">Adresse</label><input formControlName="adresse" type="text" class="form-control" ></div>
+                        <div class="col-md-12"><label class="labels">Code postal</label><input formControlName="codePostal" type="text" class="form-control" ></div>
+                        <div class="col-md-12"><label class="labels">Ville</label><input formControlName="ville" type="text" class="form-control" ></div>
+                    </div>
+                    <hr>
+                    <h3>Changer le mot de passe</h3>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Entrer un mot de passe</label><input formControlName="password" type="text" class="form-control" placeholder="Mot de passe" value=""></div>
+                        <div class="col-md-6"><label class="labels">Confirmer notre mot de passe</label><input formControlName="confirmPassword" type="text" class="form-control"  value="" placeholder="Confirmer votre mot de passe"></div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button" type="button" (click)="save()">Sauvegarder</button>
+                    </div>
+                </div>
+            </form>
         </mat-tab>
         <mat-tab label="Achats">
             <mat-table [dataSource]="dataSourceAchats" matSort class="mat-elevation-z8">

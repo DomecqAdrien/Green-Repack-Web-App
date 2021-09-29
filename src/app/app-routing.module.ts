@@ -34,7 +34,7 @@ const routes: Routes = [
 
   // ventes
   { path: 'manage/ventes', component: SellComponent, canActivate: [AuthGuard, IsTechnicien] },
-  { path: 'ventes/new', component: SellFormComponent, canActivate: [AuthGuard] },
+  { path: 'ventes/new', component: SellFormComponent, canActivate: [AuthGuard, IsMarchand] },
 
   // Paiement
   { path: 'paiement', component: PaiementComponent, canActivate: [AuthGuard] },

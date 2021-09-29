@@ -43,10 +43,10 @@ export class AppComponent implements OnInit{
   logout(): void{
     this.userService.logout();
     this.panierService.resetPanier();
-    this.router.navigate(['login']);
     this.isAdministrateur = false;
     this.isTechnicien = false;
     this.isMarchand = false;
+    this.router.navigate(['/login']);
   }
 
   onToggleSidenav(): void {

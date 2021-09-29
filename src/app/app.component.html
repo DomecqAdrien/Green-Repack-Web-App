@@ -12,7 +12,7 @@
     </div>
 
     <div fxShow="true" fxHide.lt-md="true">
-      <a *ngIf="!isAdministrateur && !isTechnicien" mat-button routerLink="/ventes/new"><mat-icon>sell</mat-icon> Vendre</a>
+      <a *ngIf="isMarchand" mat-button routerLink="/ventes/new"><mat-icon>sell</mat-icon> Vendre</a>
       <a *ngIf="isTechnicien || isAdministrateur"mat-button routerLink="/manage/">Manage</a>
       <a *ngIf="isTechnicien || isAdministrateur"mat-button routerLink="/manage/ventes">Ventes</a>
       <a *ngIf="isAdministrateur" mat-button routerLink="/manage/techniciens">Techniciens</a>

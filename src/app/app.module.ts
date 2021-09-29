@@ -40,6 +40,7 @@ import { CreateCaracteristiqueComponent } from './components/dialog/create-carac
 import { CreateUniteComponent } from './components/dialog/create-unite/create-unite.component';
 import { CreatePrixComponent } from './components/dialog/create-prix/create-prix.component';
 import { CreateCategorieComponent } from './components/dialog/create-categorie/create-categorie.component';
+import { ManageUsersComponent } from './components/manage/manage-users/manage-users.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { CreateCategorieComponent } from './components/dialog/create-categorie/c
     CreateCaracteristiqueComponent,
     CreateUniteComponent,
     CreatePrixComponent,
-    CreateCategorieComponent
+    CreateCategorieComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,
