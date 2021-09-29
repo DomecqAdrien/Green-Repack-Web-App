@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Article } from './model/Article';
-import { Produit } from './model/Produit';
 import { PanierService } from './services/panier.service';
 import { UserService } from './services/user.service';
 
@@ -13,6 +12,9 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit{
 
   isLogged: boolean;
+  isMarchand: boolean;
+  isTechnicien: boolean;
+  isAdministrateur: boolean;
   panier: Article[] = [];
 
   constructor(
@@ -25,11 +27,16 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     if (this.userService.loggedIn()) {
       this.userService.setIsLogged(true);
-      // this.panier.push(new Produit('a','a','a',1,[],[]))
     }
     this.panierService.setPanier();
     this.userService.isLogged.subscribe(isLogged => this.isLogged = isLogged);
     this.panierService.panier.subscribe(panier => this.panier = panier);
+    this.isAdministrateur = this.userService.isAdmin();
+    this.isTechnicien = this.userService.isTechnicien();
+    this.isMarchand = this.userService.isMarchand();
+    console.log(this.isMarchand);
+    console.log(this.isTechnicien);
+    console.log(this.isAdministrateur);
     console.log(this.panier.length);
   }
 
@@ -37,5 +44,12 @@ export class AppComponent implements OnInit{
     this.userService.logout();
     this.panierService.resetPanier();
     this.router.navigate(['login']);
+    this.isAdministrateur = false;
+    this.isTechnicien = false;
+    this.isMarchand = false;
+  }
+
+  onToggleSidenav(): void {
+
   }
 }

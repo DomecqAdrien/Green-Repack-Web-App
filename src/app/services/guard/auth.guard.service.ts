@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     return this.getUser();
   }
+
   getUser(): boolean {
     if (this.userService.isTokenExpired()) {
       localStorage.removeItem('green-repack-user-email');

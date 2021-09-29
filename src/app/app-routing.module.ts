@@ -16,6 +16,9 @@ import { ManageCaracteristiquesComponent } from './components/manage/manage-cara
 import { ManageComponent } from './components/manage/manage.component';
 import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
 import { ManageTechniciensComponent } from './components/manage/manage-techniciens/manage-techniciens.component';
+import { IsAdmin } from './services/guard/roles/is-admin.service';
+import { IsTechnicien } from './services/guard/roles/is-technicien.service';
+import { IsMarchand } from './services/guard/roles/is-marchand.service';
 const routes: Routes = [
 
   // user
@@ -30,7 +33,7 @@ const routes: Routes = [
 
 
   // ventes
-  { path: 'manage/ventes', component: SellComponent, canActivate: [AuthGuard] },
+  { path: 'manage/ventes', component: SellComponent, canActivate: [AuthGuard, IsTechnicien] },
   { path: 'ventes/new', component: SellFormComponent, canActivate: [AuthGuard] },
 
   // Paiement
@@ -39,9 +42,9 @@ const routes: Routes = [
   { path: 'paiement/error', component: ErrorComponent, canActivate: [AuthGuard] },
 
   // Admin
-  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] },
-  { path: 'manage/techniciens', component: ManageTechniciensComponent, canActivate: [AuthGuard] },
-  { path: 'manage/ventes/:id', component: SellDetailComponent, canActivate: [AuthGuard] },
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard, IsTechnicien] },
+  { path: 'manage/techniciens', component: ManageTechniciensComponent, canActivate: [AuthGuard, IsAdmin] },
+  { path: 'manage/ventes/:id', component: SellDetailComponent, canActivate: [AuthGuard, IsTechnicien] },
 
   { path: '**', redirectTo: 'produits'}
 ];

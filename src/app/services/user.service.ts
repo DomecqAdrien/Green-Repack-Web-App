@@ -10,10 +10,7 @@ import jwt_decode from 'jwt-decode';
 export class UserService extends ApiService {
 
   isLogged = new BehaviorSubject<boolean>(false);
-  currentUser: Utilisateur;
   userRole: string;
-  initialized = false;
-  isLoading = false;
   isUpdatePassword: boolean;
 
   constructor(errorHandler: ErrorHandler) {
@@ -62,6 +59,7 @@ export class UserService extends ApiService {
 
   setIsLogged(isLogged: boolean): any {
       this.isLogged.next(isLogged);
+      this.userRole = this.getRole();
   }
 
   logout(): any {
@@ -71,15 +69,14 @@ export class UserService extends ApiService {
     sessionStorage.clear();
     this.setIsLogged(false);
     this.userRole = null;
-    this.currentUser = null;
-    this.initialized = false;
   }
 
   isAdmin(): boolean {
-    return this.userRole !== 'Administrateur';
+    return this.userRole === 'Administrateur';
   }
 
   isTechnicien(): boolean {
+    console.log(this.userRole);
     return this.userRole === 'Technicien';
   }
 
@@ -97,6 +94,12 @@ export class UserService extends ApiService {
 
   getToken(): string {
     return localStorage.getItem('green-repack-user-tk');
+  }
+
+  getRole(): string {
+    const decoded: any = jwt_decode(this.getToken());
+    console.log(decoded);
+    return decoded.role;
   }
 
 

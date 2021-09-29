@@ -33,8 +33,8 @@
                     <mat-cell *matCellDef="let achat"> {{ achat.date }} </mat-cell>
                 </ng-container>
                 
-                <ng-container matColumnDef="statut">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header="statut"> Statut </mat-header-cell>
+                <ng-container matColumnDef="prix">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header="prix"> Statut </mat-header-cell>
                     <mat-cell *matCellDef="let achat"> {{ achat.prix }} </mat-cell>
                 </ng-container>
         
@@ -47,6 +47,8 @@
                 <mat-row *matRowDef="let row; columns: displayedColumnsAchats;"></mat-row>
             </mat-table>
         </mat-tab>
+
+        
 
         <mat-tab label="Ventes">
             <mat-table [dataSource]="dataSourceVentes" matSort class="mat-elevation-z8">

@@ -43,7 +43,7 @@ export class ProduitService extends ApiService{
     });
   }
 
-  public async createCategorie(libelle: string) {
+  public async createCategorie(libelle: string): Promise<any> {
     return await this.postApi<any>({
       url: '/categorie',
       data: {libelle}

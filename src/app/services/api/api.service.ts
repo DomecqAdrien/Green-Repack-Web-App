@@ -104,11 +104,12 @@ export class ApiService {
     public async request<T>(params: any): Promise<T> {
         console.log(params);
         try {
-            const axiosResponse = await this.axiosClient.request({
+            const axiosResponse = await axios.request({
                 url: params.url,
                 method: params.method,
                 data: params.data,
-                params: params.params
+                params: params.params,
+                headers: {}
             });
             return axiosResponse.data;
         } catch (error){

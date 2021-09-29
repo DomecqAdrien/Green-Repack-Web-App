@@ -1,15 +1,21 @@
 <!-- Toolbar -->
 <p>
   <mat-toolbar class="navbar">
-    <img width="40" alt="Angular Logo" src="assets/icon.png" routerLink="/"/>
-    
+    <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()">
+          <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div>
+      <img width="40" height="40" alt="Angular Logo" src="assets/icon.png" routerLink="/"/>
+      <span mat-button routerLink="/" class="title">Green Repack</span>
+    </div>
+
     <div fxShow="true" fxHide.lt-md="true">
-      <span mat-button routerLink="/">Green Repack</span>
-      <span class="example-spacer"></span>
-      <span class="spacing"></span>
-      <a mat-button routerLink="/ventes/new"><mat-icon>sell</mat-icon> Vendre</a>
-      <a mat-button routerLink="/manage/ventes">Ventes</a>
-      <a mat-button routerLink="/manage/techniciens">Techniciens</a>
+      <a *ngIf="!isAdministrateur && !isTechnicien" mat-button routerLink="/ventes/new"><mat-icon>sell</mat-icon> Vendre</a>
+      <a *ngIf="isTechnicien || isAdministrateur"mat-button routerLink="/manage/">Manage</a>
+      <a *ngIf="isTechnicien || isAdministrateur"mat-button routerLink="/manage/ventes">Ventes</a>
+      <a *ngIf="isAdministrateur" mat-button routerLink="/manage/techniciens">Techniciens</a>
       <a *ngIf="panier.length > 0" mat-button routerLink="/paiement"><mat-icon>shopping_basket</mat-icon> Panier: {{ panier.length }}</a>
       <a *ngIf="isLogged" mat-button routerLink="/compte">Compte</a>
       <a *ngIf="!isLogged" mat-button routerLink="/login"><mat-icon>login</mat-icon> Se connecter</a>
