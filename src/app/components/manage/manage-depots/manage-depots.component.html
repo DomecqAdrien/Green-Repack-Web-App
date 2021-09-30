@@ -1,0 +1,28 @@
+<div class="container">
+  <mat-table *ngIf="isLoaded" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="libelle">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="libelle"> Libellé </mat-header-cell>
+          <mat-cell *matCellDef="let depot"> {{ depot.libelle }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="adresse">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="adresse"> Adresse </mat-header-cell>
+          <mat-cell *matCellDef="let depot"> {{ depot.adresse }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="codePostal">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="codePostal"> Code postal </mat-header-cell>
+          <mat-cell *matCellDef="let depot"> {{ depot.codePostal }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ville">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="ville"> Ville </mat-header-cell>
+        <mat-cell *matCellDef="let depot"> {{ depot.ville }} </mat-cell>
+    </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <br/>
+  <button mat-raised-button color="warn" (click)="addDepot()">Ajouter un dépôt</button>
+</div>

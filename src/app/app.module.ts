@@ -41,6 +41,8 @@ import { CreateUniteComponent } from './components/dialog/create-unite/create-un
 import { CreatePrixComponent } from './components/dialog/create-prix/create-prix.component';
 import { CreateCategorieComponent } from './components/dialog/create-categorie/create-categorie.component';
 import { ManageUsersComponent } from './components/manage/manage-users/manage-users.component';
+import { ManageDepotsComponent } from './components/manage/manage-depots/manage-depots.component';
+import { CreateDepotComponent } from './components/dialog/create-depot/create-depot.component';
 
 
 @NgModule({
@@ -75,7 +77,9 @@ import { ManageUsersComponent } from './components/manage/manage-users/manage-us
     CreateUniteComponent,
     CreatePrixComponent,
     CreateCategorieComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    ManageDepotsComponent,
+    CreateDepotComponent
   ],
   imports: [
     BrowserModule,

@@ -9,12 +9,15 @@
       <mat-tab label="Unités">
         <app-manage-unites></app-manage-unites>
       </mat-tab>
+      <mat-tab label="Dépôts">
+        <app-manage-depots></app-manage-depots>
+      </mat-tab>
       <mat-tab label="Prix par défaut">
         <app-manage-prix [categories]="categories"></app-manage-prix>
       </mat-tab>
       <mat-tab label="Utilisateurs en attente">
         <app-manage-users [users]="users"></app-manage-users>
       </mat-tab>
-      
+
     </mat-tab-group>
   </div>
