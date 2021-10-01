@@ -7,6 +7,7 @@ export class Vente {
     date: string;
     produit: Produit;
     offres: Offre[];
+    titre: string;
 
     constructor(statut: string, produit: Produit) {
         this.statut = statut;

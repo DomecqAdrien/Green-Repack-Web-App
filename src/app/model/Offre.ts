@@ -5,4 +5,5 @@ export class Offre {
     statut: string;
     venteId: number;
     colisId: number;
+    titre: string;
 }

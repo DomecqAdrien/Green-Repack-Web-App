@@ -34,4 +34,10 @@ export class VenteService extends ApiService {
       url: '/vente/infos/' + id
     });
   }
+
+  public async getVentesByUserAndFinished(email: string): Promise<any> {
+    return await this.getApi({
+      url: '/ventes/user/' + email
+    });
+  }
 }

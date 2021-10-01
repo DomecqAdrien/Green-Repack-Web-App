@@ -3,10 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Achat } from 'src/app/model/Achat';
+import { Offre } from 'src/app/model/Offre';
 import { Utilisateur } from 'src/app/model/Utilisateur';
 import { Vente } from 'src/app/model/Vente';
+import { AchatService } from 'src/app/services/achat.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { OffreService } from 'src/app/services/offre.service';
 import { UserService } from 'src/app/services/user.service';
+import { VenteService } from 'src/app/services/vente.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -18,18 +22,24 @@ export class UserSettingsComponent implements OnInit {
   form: FormGroup;
   ventes: Vente[] = [];
   achats: Achat[] = [];
+  offres: Offre[] = [];
   userInfos: Utilisateur;
   dataSourceVentes = new MatTableDataSource<Vente>([]);
   dataSourceAchats = new MatTableDataSource<Achat>([]);
-  displayedColumnsVentes = ['statut', 'date', 'produit'];
-  displayedColumnsAchats = ['date', 'prix', 'produit'];
+  dataSourceOffres = new MatTableDataSource<Offre>([]);
+  displayedColumnsAchats = ['date', 'produit', 'prix', 'statut'];
+  displayedColumnsVentes = ['date', 'produit', 'statut'];
+  displayedColumnsOffres = ['date', 'titre', 'prix', 'statut', 'accept', 'refuse'];
   email: string = "";
   isLoaded = false;
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private offreService: OffreService,
+    private venteService: VenteService,
+    private achatService: AchatService
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +52,15 @@ export class UserSettingsComponent implements OnInit {
      if(this.userInfos.role == "En attente"){
        this.alertService.info('Vous êtes en attente pour devenir marchand')
      }
+     this.ventes = await this.venteService.getVentesByUserAndFinished(this.email);
+     console.log(this.ventes);
+     this.dataSourceVentes = new MatTableDataSource(this.ventes);
+     this.offres = await this.offreService.getOffersByUser(this.email);
+     console.log(this.offres)
+     this.dataSourceOffres = new MatTableDataSource(this.offres);
+     this.achats = await this.achatService.getAchatsByUser(this.email);
+     console.log(this.achats)
+     this.dataSourceAchats = new MatTableDataSource(this.achats);
      this.isLoaded = true;
      this.form = this.formBuilder.group({
       prenom: [this.userInfos.prenom],
@@ -54,6 +73,16 @@ export class UserSettingsComponent implements OnInit {
       confirmPassword: ['']
     });
      
+  }
+
+  async updateOffer(offre: Offre, statut: string){
+      console.log(offre.id + statut);
+
+      (document.getElementById('accept-btn'+offre.id) as HTMLButtonElement).disabled = true;
+      (document.getElementById('refuse-btn'+offre.id) as HTMLButtonElement).disabled = true;
+      
+      const a = await this.offreService.updateOfferStatus(offre.id, statut)
+      console.log(a)
   }
 
   async save(){
