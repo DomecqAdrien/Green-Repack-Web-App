@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div>
+        <h3>Le prix de référence du produit est de {{ prixVente.prix }} €.</h3>
+        <h3>Veuillez choisir un prix en fonction de l'état du produit :</h3>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Prix</mat-label>
+            <input formControlName="prix" type="number" class="form-control" matInput>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary">
+            Créer
+        </button>
+        <a class="btn btn-link" (click)="closeDialog()">Cancel</a>
+    </div>
+</form>

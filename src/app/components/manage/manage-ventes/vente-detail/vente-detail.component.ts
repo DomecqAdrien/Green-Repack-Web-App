@@ -11,6 +11,11 @@ import { Unite } from 'src/app/model/Unite';
 import { VenteService } from 'src/app/services/vente.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Offre } from 'src/app/model/Offre';
+import { CreateContreOffreComponent } from 'src/app/components/dialog/create-contre-offre/create-contre-offre.component';
+import { PrixVente } from 'src/app/model/PrixVente';
+import { MatDialog } from '@angular/material/dialog';
+import { OffreService } from 'src/app/services/offre.service';
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-vente-detail',
@@ -20,6 +25,7 @@ import { Offre } from 'src/app/model/Offre';
 export class SellDetailComponent implements OnInit {
 
   vente: Vente;
+  prixVente: PrixVente;
   caracteristiques = new MatTableDataSource<ProduitCaracteristiques>([]);
   offres = new MatTableDataSource<Offre>([]);
   displayedColumnsCaracs: string[] = ['libelle', 'unite'];
@@ -29,13 +35,15 @@ export class SellDetailComponent implements OnInit {
   loading = false;
   id: number;
   etats = ['Neuf', 'Peu utilisé', 'Dégradé'];
-  statuts = ['En cours', 'Validée', 'Terminée', 'Refusée'];
+  statuts = ['En cours', 'Validé', 'Refusé'];
 
 
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private venteService: VenteService
+    private venteService: VenteService,
+    private offreService: OffreService,
+    private dialog: MatDialog,
   ) { }
 
 
@@ -58,12 +66,39 @@ export class SellDetailComponent implements OnInit {
     });
   }
 
-  onSubmit(): any{
-    console.log(this.form);
+  async onSubmit(): Promise<any>{
+    const statut = this.form.value.statut;
+    if(statut == "Accepté" || statut == "Refusé"){
+      console.log("here")
+      const lastOffer = this.vente.offres[this.vente.offres.length -1]
+      const a = await this.venteService.validateVente(this.id, lastOffer.id, statut)
+      console.log(a)
+    }
   }
 
   downloadColissimo(): any {
     //TODO: file download
+  }
+
+
+  async createContreOffre(): Promise<void> {
+    this.prixVente = await this.offreService.getPrixVenteByTitre(this.vente.produit.titre);
+    const prix = await this.dialog.open(CreateContreOffreComponent, {
+      width: '30%',
+      height: '20%',
+      data: {
+        prix: this.prixVente
+      }
+    }).afterClosed().toPromise();
+    console.log(prix)
+    if (prix !== undefined) {
+      console.log(prix)
+      const a = await this.offreService.createContreOffre(this.id, prix)
+      console.log(a);
+      // const aa = await this.produitService.createCaracteristique(caracToCreate);
+      // console.log(aa);
+      // this.getData()
+    }
   }
 
 }

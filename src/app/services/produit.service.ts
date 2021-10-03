@@ -23,6 +23,12 @@ export class ProduitService extends ApiService{
       url: '/produits'
     });
   }
+  
+  public async getSellableProduits(): Promise<any> {
+    return await this.getApi<any>({
+      url: '/produits/a-vendre'
+    });
+  }
 
   public async getProduitById(id: number): Promise<Produit> {
     return await this.getApi<Produit>({

@@ -29,7 +29,7 @@ export class UserSettingsComponent implements OnInit {
   dataSourceOffres = new MatTableDataSource<Offre>([]);
   displayedColumnsAchats = ['date', 'produit', 'prix', 'statut'];
   displayedColumnsVentes = ['date', 'produit', 'statut'];
-  displayedColumnsOffres = ['date', 'titre', 'prix', 'statut', 'accept', 'refuse'];
+  displayedColumnsOffres = ['date', 'titre', 'prix', 'accept', 'refuse'];
   email: string = "";
   isLoaded = false;
 

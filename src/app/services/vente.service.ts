@@ -40,4 +40,15 @@ export class VenteService extends ApiService {
       url: '/ventes/user/' + email
     });
   }
+
+  public async validateVente(venteId: Number, offreId: Number, statut:string): Promise<any> {
+    return await this.putApi({
+      url: '/validate-vente/',
+      data:{
+        venteId,
+        offreId,
+        statut
+      }
+    });
+  }
 }

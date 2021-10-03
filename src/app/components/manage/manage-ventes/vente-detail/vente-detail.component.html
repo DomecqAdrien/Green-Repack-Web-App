@@ -1,5 +1,5 @@
 <div *ngIf="isLoaded" class="container">
-    <form [formGroup]="form" (ngSubmit)=onSubmit()>
+    <form [formGroup]="form">
         <h2>{{ vente.produit.titre }}</h2>
         <mat-tab-group>
             <mat-tab label="Informations générales">
@@ -25,10 +25,17 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <div>
+                    <p>Prix: </p>
+                    <p>{{ vente.produit.prix }} €</p>
+                </div>
                 
                 <div>
                     <p>Description: </p>
                     <p>{{ vente.produit.description }}</p>
+                </div>
+                <div>
+                    <button mat-raised-button color="primary" (click)="createContreOffre()">Créer une contre-offre</button>
                 </div>
             </mat-tab>
 
@@ -89,7 +96,7 @@
         </mat-tab-group>
         <hr>
         <div>
-            <button [disabled]="loading" class="btn btn-primary">
+            <button [disabled]="loading" class="btn btn-primary" (click)="onSubmit()">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Soumettre
             </button>

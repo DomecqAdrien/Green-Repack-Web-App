@@ -22,4 +22,17 @@ export class OffreService extends ApiService{
       data: {statut}
     });
    }
+
+   public async createContreOffre(id: Number, prix: Number): Promise<any>{
+    return await this.postApi<any>({
+      url: '/contre-offre/' + id,
+      data: {prix}
+    });
+   }
+
+   public async getPrixVenteByTitre(titre: string): Promise<any>{
+    return await this.getApi<any>({
+      url: '/prix_vente/titre/' + titre,
+    });
+   }
 }

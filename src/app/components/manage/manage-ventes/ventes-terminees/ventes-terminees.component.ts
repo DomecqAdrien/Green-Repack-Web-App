@@ -16,7 +16,7 @@ export class SellCompletedComponent implements OnInit {
   ventes: Vente[] = [];
   dataSource = new MatTableDataSource<Vente>([]);
 
-  displayedColumns: string[] = ['id', 'statut', 'date'];
+  displayedColumns: string[] = ['id', 'titre', 'statut', 'date'];
 
   constructor(
     private router: Router,

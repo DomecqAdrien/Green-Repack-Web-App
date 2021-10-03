@@ -6,6 +6,11 @@
             <mat-cell *matCellDef="let vente"> {{ vente.id }} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="titre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="titre"> Id </mat-header-cell>
+            <mat-cell *matCellDef="let vente"> {{ vente.titre }} </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="statut">
             <mat-header-cell *matHeaderCellDef mat-sort-header="statut"> Statut </mat-header-cell>
             <mat-cell *matCellDef="let vente"> {{ vente.statut }} </mat-cell>

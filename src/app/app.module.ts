@@ -43,6 +43,7 @@ import { CreateCategorieComponent } from './components/dialog/create-categorie/c
 import { ManageUsersComponent } from './components/manage/manage-users/manage-users.component';
 import { ManageDepotsComponent } from './components/manage/manage-depots/manage-depots.component';
 import { CreateDepotComponent } from './components/dialog/create-depot/create-depot.component';
+import { CreateContreOffreComponent } from './components/dialog/create-contre-offre/create-contre-offre.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { CreateDepotComponent } from './components/dialog/create-depot/create-de
     CreateCategorieComponent,
     ManageUsersComponent,
     ManageDepotsComponent,
-    CreateDepotComponent
+    CreateDepotComponent,
+    CreateContreOffreComponent
   ],
   imports: [
     BrowserModule,

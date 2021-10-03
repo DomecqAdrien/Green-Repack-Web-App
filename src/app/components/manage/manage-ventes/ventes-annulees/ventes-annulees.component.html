@@ -6,6 +6,11 @@
             <mat-cell *matCellDef="let vente"> {{ vente.id }} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="titre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="titre"> Id </mat-header-cell>
+            <mat-cell *matCellDef="let vente"> {{ vente.titre }} </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="statut">
             <mat-header-cell *matHeaderCellDef mat-sort-header="statut"> Statut </mat-header-cell>
             <mat-cell *matCellDef="let vente"> {{ vente.statut }} </mat-cell>
@@ -17,6 +22,6 @@
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row.id)"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 </div>

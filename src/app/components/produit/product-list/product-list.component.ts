@@ -46,7 +46,7 @@ export class ProductListComponent implements OnInit {
   }
 
   async getProduits(): Promise<any> {
-    const produits: Produit[] = await this.produitSercice.getProduits();
+    const produits: Produit[] = await this.produitSercice.getSellableProduits();
     console.log(produits);
     produits.forEach(produit => {
       this.produitsSource.push(produit);
