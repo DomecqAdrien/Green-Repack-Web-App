@@ -1,4 +1,5 @@
 import { ErrorHandler, Injectable } from '@angular/core';
+import { Retour } from '../model/Retour';
 import { Vente } from '../model/Vente';
 import { ApiService } from './api/api.service';
 
@@ -49,6 +50,12 @@ export class VenteService extends ApiService {
         offreId,
         statut
       }
+    });
+  }
+
+  public async getRetoursByUser(email: string): Promise<Retour[]> {
+    return await this.getApi({
+      url: '/retour_produit/' + email
     });
   }
 }
