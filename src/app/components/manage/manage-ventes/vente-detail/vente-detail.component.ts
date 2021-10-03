@@ -35,7 +35,7 @@ export class SellDetailComponent implements OnInit {
   loading = false;
   id: number;
   etats = ['Neuf', 'Peu utilisé', 'Dégradé'];
-  statuts = ['En cours', 'Validé', 'Refusé'];
+  statuts = ['En cours', 'Accepté', 'Refusé'];
 
 
   constructor(
@@ -44,6 +44,7 @@ export class SellDetailComponent implements OnInit {
     private venteService: VenteService,
     private offreService: OffreService,
     private dialog: MatDialog,
+    private router: Router,
   ) { }
 
 
@@ -67,12 +68,17 @@ export class SellDetailComponent implements OnInit {
   }
 
   async onSubmit(): Promise<any>{
+    console.log("hello")
     const statut = this.form.value.statut;
     if(statut == "Accepté" || statut == "Refusé"){
       console.log("here")
       const lastOffer = this.vente.offres[this.vente.offres.length -1]
+      console.log("venteId " +  this.id)
+      console.log("offre " +  lastOffer.id)
+      console.log(statut)
       const a = await this.venteService.validateVente(this.id, lastOffer.id, statut)
       console.log(a)
+      this.router.navigate(['/manage/ventes']);
     }
   }
 
