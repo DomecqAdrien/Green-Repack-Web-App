@@ -30,10 +30,10 @@ export class AppComponent implements OnInit{
     }
     this.panierService.setPanier();
     this.userService.isLogged.subscribe(isLogged => this.isLogged = isLogged);
+    this.userService.isMarchand.subscribe(isMarchand => this.isMarchand = isMarchand);
+    this.userService.isTechnicien.subscribe(isTechnicien => this.isTechnicien = isTechnicien);
+    this.userService.isAdmin.subscribe(isAdmin => this.isAdministrateur = isAdmin);
     this.panierService.panier.subscribe(panier => this.panier = panier);
-    this.isAdministrateur = this.userService.isAdmin();
-    this.isTechnicien = this.userService.isTechnicien();
-    this.isMarchand = this.userService.isMarchand();
     console.log(this.isMarchand);
     console.log(this.isTechnicien);
     console.log(this.isAdministrateur);

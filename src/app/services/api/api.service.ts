@@ -40,15 +40,19 @@ export class ApiService {
         this.errorHandler = errorHandler;
         this.axiosClient = axios.create({
             timeout: 10000,
-            headers : {
-                Authorization: 'Bearer ' + this.jwt
-            }
+            // headers : {
+            //     Authorization: 'Bearer ' + this.jwt
+            // }
         });
     }
 
     public async getApi<T>(options: GetOptions): Promise<T> {
+        console.log(this.jwt);
         try {
             const axiosResponse = await this.axiosClient.request<T>({
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('green-repack-user-tk')
+                },
                 method: 'get',
                 url: this.apiUrl + options.url,
                 params: options.params
@@ -63,6 +67,9 @@ export class ApiService {
     public async postApi<T>(options: PostOptions): Promise<T> {
         try {
             const axiosResponse = await this.axiosClient.request<T>({
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('green-repack-user-tk')
+                },
                 method: 'POST',
                 url: this.apiUrl + options.url,
                 data: options.data
@@ -77,6 +84,9 @@ export class ApiService {
     public async putApi<T>(params: any): Promise<T> {
         try {
             const axiosResponse = await this.axiosClient.request<T>({
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('green-repack-user-tk')
+                },
                 method: 'PUT',
                 url: this.apiUrl + params.url,
                 data: params.data
@@ -91,6 +101,9 @@ export class ApiService {
     public async deleteApi<T>(params: any): Promise<T> {
         try {
             const axiosResponse = await this.axiosClient.request<T>({
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('green-repack-user-tk')
+                },
                 method: 'DELETE',
                 url: this.apiUrl + params.url
             });

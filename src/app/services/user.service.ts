@@ -10,6 +10,9 @@ import jwt_decode from 'jwt-decode';
 export class UserService extends ApiService {
 
   isLogged = new BehaviorSubject<boolean>(false);
+  isAdmin = new BehaviorSubject<boolean>(false);
+  isMarchand = new BehaviorSubject<boolean>(false);
+  isTechnicien = new BehaviorSubject<boolean>(false);
   userRole: string;
   isUpdatePassword: boolean;
 
@@ -39,7 +42,7 @@ export class UserService extends ApiService {
     });
   }
 
-  public async getUser(email: String): Promise<Utilisateur> {
+  public async getUser(email: string): Promise<Utilisateur> {
     return await this.getApi<Utilisateur>({
       url: '/user/' + email
     });
@@ -72,8 +75,8 @@ export class UserService extends ApiService {
 
   setIsLogged(isLogged: boolean): any {
       this.isLogged.next(isLogged);
-      if(isLogged){
-        this.userRole = this.getRole();
+      if (isLogged){
+        this.setUserRole(this.getRole());
       }
   }
 
@@ -82,21 +85,29 @@ export class UserService extends ApiService {
     localStorage.removeItem('green-repack-user-tk');
     sessionStorage.clear();
     this.setIsLogged(false);
-    this.userRole = null;
+    this.setUserRole(null);
+    // this.userRole = null;
   }
 
-  isAdmin(): boolean {
-    return this.userRole === 'Administrateur';
+  setUserRole(userRole: any): void {
+    this.userRole = userRole;
+    this.isAdmin.next(this.userRole === 'Administrateur');
+    this.isTechnicien.next(this.userRole === 'Technicien');
+    this.isMarchand.next(this.userRole === 'Marchand');
   }
 
-  isTechnicien(): boolean {
-    console.log(this.userRole);
-    return this.userRole === 'Technicien';
-  }
+  // isAdmin(): boolean {
+  //   return this.userRole === 'Administrateur';
+  // }
 
-  isMarchand(): boolean {
-    return this.userRole === 'Marchand';
-  }
+  // isTechnicien(): boolean {
+  //   console.log(this.userRole);
+  //   return this.userRole === 'Technicien';
+  // }
+
+  // isMarchand(): boolean {
+  //   return this.userRole === 'Marchand';
+  // }
 
   getEmail(): string {
     return localStorage.getItem('green-repack-user-email');
