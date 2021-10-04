@@ -42,10 +42,10 @@ export class VenteService extends ApiService {
     });
   }
 
-  public async validateVente(venteId: Number, offreId: Number, statut:string): Promise<any> {
+  public async validateVente(venteId: number, offreId: number, statut: string): Promise<any> {
     return await this.putApi({
       url: '/validate-vente/',
-      data:{
+      data: {
         venteId,
         offreId,
         statut
@@ -56,6 +56,27 @@ export class VenteService extends ApiService {
   public async getRetoursByUser(email: string): Promise<Retour[]> {
     return await this.getApi({
       url: '/retour_produit/' + email
+    });
+  }
+
+  public async refuseRetour(data: Retour): Promise<any> {
+    return await this.postApi({
+      url: '/retour/refuse',
+      data
+    });
+  }
+
+  public async checkoutRetour(data: Retour): Promise<any> {
+    return await this.postApi({
+      url: '/retour/checkout',
+      data
+    });
+  }
+
+  public async acceptRetour(key: any): Promise<any> {
+    return await this.postApi({
+      url: '/retour/accept',
+      data: {key}
     });
   }
 }
