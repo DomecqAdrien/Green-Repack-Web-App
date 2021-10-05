@@ -15,6 +15,7 @@ import { OffreService } from 'src/app/services/offre.service';
 import { UserService } from 'src/app/services/user.service';
 import { VenteService } from 'src/app/services/vente.service';
 import { environment } from 'src/environments/environment';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-user-settings',
@@ -35,9 +36,9 @@ export class UserSettingsComponent implements OnInit {
   dataSourceOffres = new MatTableDataSource<Offre>([]);
   dataSourceRetours = new MatTableDataSource<Retour>([]);
   displayedColumnsAchats = ['date', 'produit', 'prix', 'statut'];
-  displayedColumnsVentes = ['date', 'produit', 'statut'];
+  displayedColumnsVentes = ['date', 'produit', 'statut', 'colis'];
   displayedColumnsOffres = ['date', 'titre', 'prix', 'accept', 'refuse'];
-  displayedColumnsRetours = ['statut', 'produit', 'accept', 'refuse'];
+  displayedColumnsRetours = ['statut', 'produit', 'accept', 'refuse', 'colis'];
   email = '';
   isLoaded = false;
 
@@ -159,6 +160,10 @@ export class UserSettingsComponent implements OnInit {
     const update = await this.userService.updateUser(this.email, user);
     console.log(update);
     this.alertService.success('Votre demande a bien été prise en compte');
+  }
+
+  downloadColissimo(): void {
+    saveAs('assets/bon_colissimo.jpg', 'bon_colissimo.jpg');
   }
 
 }
