@@ -22,7 +22,8 @@ export class CreateDepotComponent{
       libelle: ['', Validators.required],
       adresse: ['', Validators.required],
       codePostal: ['', Validators.required],
-      ville: ['', Validators.required]
+      ville: ['', Validators.required],
+      capacite: ['', Validators.required]
     });
   }
 

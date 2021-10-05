@@ -14,7 +14,7 @@ export class ManageDepotsComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Depot>([]);
   depots: Depot[] = [];
-  displayedColumns = ['libelle', 'adresse', 'codePostal', 'ville'];
+  displayedColumns = ['libelle', 'adresse', 'codePostal', 'ville', 'capacite'];
   isLoaded = false;
 
   constructor(
