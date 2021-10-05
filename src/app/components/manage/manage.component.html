@@ -9,13 +9,13 @@
       <mat-tab label="Unités">
         <app-manage-unites></app-manage-unites>
       </mat-tab>
-      <mat-tab label="Dépôts">
+      <mat-tab label="Dépôts" *ngIf="userInfos.role === 'Administrateur'">
         <app-manage-depots></app-manage-depots>
       </mat-tab>
       <mat-tab label="Prix par défaut">
         <app-manage-prix [categories]="categories"></app-manage-prix>
       </mat-tab>
-      <mat-tab label="Utilisateurs en attente">
+      <mat-tab label="Utilisateurs en attente" *ngIf="userInfos.role === 'Administrateur'">
         <app-manage-users [users]="users"></app-manage-users>
       </mat-tab>
 

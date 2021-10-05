@@ -14,6 +14,7 @@ export class ManageComponent implements OnInit {
   categories: Categorie[] = [];
   users: Utilisateur[] = [];
   isLoaded = false;
+  userInfos: Utilisateur;
 
   constructor(
     private produitService: ProduitService,
@@ -27,6 +28,7 @@ export class ManageComponent implements OnInit {
   async getData(): Promise<void> {
     this.categories = await this.produitService.getCategories();
     this.users = await this.userService.getUsersByRole("En attente")
+    this.userInfos = await this.userService.getUser(localStorage.getItem('green-repack-user-email'));
     this.isLoaded = true;
   }
 
