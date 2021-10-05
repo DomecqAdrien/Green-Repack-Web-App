@@ -135,7 +135,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header="accept"> Accepter </mat-header-cell>
                     <mat-cell *matCellDef="let retour">
                         <div *ngIf="retour.statut == 'En attente'">
-                            <button id="accept-btn{{retour.id}}" mat-raised-button color="primary" (click)="updateOffer(retour, 'Accepté')">Payer</button>
+                            <button id="accept-btn{{retour.id}}" mat-raised-button color="primary" (click)="updateRetour(retour, 'Accepté')">Payer</button>
                         </div>
                     </mat-cell>
                 </ng-container>
@@ -144,7 +144,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header="refuse"> Refuser </mat-header-cell>
                     <mat-cell *matCellDef="let retour">
                         <div *ngIf="retour.statut == 'En attente'">
-                            <button id="refuse-btn{{retour.id}}" mat-raised-button color="warn" (click)="updateOffer(retour, 'Refusé')">Refuser</button>
+                            <button id="refuse-btn{{retour.id}}" mat-raised-button color="warn" (click)="updateRetour(retour, 'Refusé')">Refuser</button>
                         </div>
                     </mat-cell>
                 </ng-container>

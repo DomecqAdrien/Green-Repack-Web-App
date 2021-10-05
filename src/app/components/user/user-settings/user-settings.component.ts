@@ -2,6 +2,8 @@ import { Version } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { loadStripe } from '@stripe/stripe-js';
 import { Achat } from 'src/app/model/Achat';
 import { Offre } from 'src/app/model/Offre';
 import { Retour } from 'src/app/model/Retour';
@@ -12,6 +14,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { OffreService } from 'src/app/services/offre.service';
 import { UserService } from 'src/app/services/user.service';
 import { VenteService } from 'src/app/services/vente.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-settings',
@@ -20,6 +23,7 @@ import { VenteService } from 'src/app/services/vente.service';
 })
 export class UserSettingsComponent implements OnInit {
 
+  stripePromise = loadStripe(environment.stripePublicKey);
   form: FormGroup;
   ventes: Vente[] = [];
   achats: Achat[] = [];
@@ -43,20 +47,35 @@ export class UserSettingsComponent implements OnInit {
     private alertService: AlertService,
     private offreService: OffreService,
     private venteService: VenteService,
-    private achatService: AchatService
+    private achatService: AchatService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getData();
   }
 
+  async checkRetour(): Promise<void> {
+    this.route.queryParams.subscribe(async params => {
+      if (params.key !== undefined) {
+        await this.venteService.acceptRetour(params.key);
+        this.router.navigate([], {
+          queryParams: { key: null },
+          queryParamsHandling: 'merge'
+        });
+      }
+    });
+  }
+
   async getData(): Promise<void> {
-     this.userInfos = await this.userService.getUser(localStorage.getItem('green-repack-user-email'));
-     this.email = this.userInfos.email;
-     if (this.userInfos.role === 'En attente'){
-       this.alertService.info('Vous êtes en attente pour devenir marchand');
-     }
-     if (this.userInfos.role === 'Marchand') {
+    await this.checkRetour();
+    this.userInfos = await this.userService.getUser(localStorage.getItem('green-repack-user-email'));
+    this.email = this.userInfos.email;
+    if (this.userInfos.role === 'En attente'){
+      this.alertService.info('Vous êtes en attente pour devenir marchand');
+    }
+    if (this.userInfos.role === 'Marchand') {
 
       this.ventes = await this.venteService.getVentesByUserAndFinished(this.email);
       this.offres = await this.offreService.getOffersByUser(this.email);
@@ -66,16 +85,16 @@ export class UserSettingsComponent implements OnInit {
       this.dataSourceVentes = new MatTableDataSource(this.ventes);
       this.dataSourceOffres = new MatTableDataSource(this.offres);
       this.dataSourceAchats = new MatTableDataSource(this.achats);
-      this.dataSourceRetours = new MatTableDataSource(this.retours)
+      this.dataSourceRetours = new MatTableDataSource(this.retours);
 
       console.log(this.ventes);
       console.log(this.achats);
       console.log(this.offres);
       console.log(this.retours);
-     }
+    }
 
-     this.isLoaded = true;
-     this.form = this.formBuilder.group({
+    this.isLoaded = true;
+    this.form = this.formBuilder.group({
       prenom: [this.userInfos.prenom],
       nom: [this.userInfos.nom],
       email: [this.userInfos.email],
@@ -99,7 +118,16 @@ export class UserSettingsComponent implements OnInit {
   }
 
   async updateRetour(retour: Retour, statut: string): Promise<void> {
-
+    console.log(retour);
+    if (statut === 'Accepté') {
+      const sessionId = await this.venteService.checkoutRetour(retour);
+      const stripe = await this.stripePromise;
+      await stripe.redirectToCheckout({ sessionId });
+      console.log(sessionId);
+    }
+    if (statut === 'Refusé') {
+      await this.venteService.refuseRetour(retour);
+    }
   }
 
   async save(): Promise<void> {
