@@ -72,6 +72,15 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header="produit"> Produit </mat-header-cell>
                     <mat-cell *matCellDef="let vente"> {{ vente.titre }} </mat-cell>
                 </ng-container>
+
+                <ng-container matColumnDef="colis">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header="colis"> N° Colis </mat-header-cell>
+                    <mat-cell *matCellDef="let vente">
+                        <div class="hyperlink" *ngIf="vente.colisId !== null" (click)="downloadColissimo()"><mat-icon>
+                            file_download
+                            </mat-icon>{{ vente.colis.numero }}</div> 
+                    </mat-cell>
+                </ng-container>
         
                 <mat-header-row *matHeaderRowDef="displayedColumnsVentes"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumnsVentes;"></mat-row>
@@ -146,6 +155,15 @@
                         <div *ngIf="retour.statut == 'En attente'">
                             <button id="refuse-btn{{retour.id}}" mat-raised-button color="warn" (click)="updateRetour(retour, 'Refusé')">Refuser</button>
                         </div>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="colis">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header="colis"> N° Colis </mat-header-cell>
+                    <mat-cell *matCellDef="let retour">
+                        <div class="hyperlink" *ngIf="retour.numero !== null" (click)="downloadColissimo()"><mat-icon>
+                            file_download
+                            </mat-icon>{{ retour.numero }}</div> 
                     </mat-cell>
                 </ng-container>
         
