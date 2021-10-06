@@ -12,14 +12,13 @@ export class CreateUniteComponent {
 
 
   form: FormGroup;
-  types: String[] = ['Text', 'Number'];
+  types: string[] = ['Text', 'Number'];
 
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<CreateUniteComponent>
   ) {
     this.form = this.formBuilder.group({
-      
       libelle: ['', Validators.required],
       abreviation: ['', Validators.required],
       type: ['', Validators.required]

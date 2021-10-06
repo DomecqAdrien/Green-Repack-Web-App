@@ -4,7 +4,7 @@
         <app-manage-categories [categories]="categories"></app-manage-categories>
       </mat-tab>
       <mat-tab label="Caractéristiques">
-        <app-manage-caracteristiques [categories]="categories"></app-manage-caracteristiques>
+        <app-manage-caracteristiques *ngIf="isCatLoaded" [categories]="categories" (getCategories)="getCategories()"></app-manage-caracteristiques>
       </mat-tab>
       <mat-tab label="Unités">
         <app-manage-unites></app-manage-unites>

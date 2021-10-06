@@ -22,7 +22,7 @@
 
         <ng-container matColumnDef="unite">
             <mat-header-cell *matHeaderCellDef mat-sort-header="unite"> Unité </mat-header-cell>
-            <mat-cell *matCellDef="let carac"> {{ carac.unite.libelle }} </mat-cell>
+            <mat-cell *matCellDef="let carac"> <div *ngIf="carac.unite !== undefined">{{ carac.unite.libelle }}</div> </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

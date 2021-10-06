@@ -36,8 +36,10 @@ export class ManagePrixComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.prixVente);
   }
 
-  selectCategory(event) {
-    
+  selectCategory(event): void {
+    console.log(event);
+    const filteredPrices = this.prixVente.filter(p => p.categorieId === +event.value);
+    this.dataSource = new MatTableDataSource(filteredPrices);
   }
 
   async addPrixVente(): Promise<void> {
@@ -49,7 +51,6 @@ export class ManagePrixComponent implements OnInit {
       }
     }).afterClosed().toPromise();
     if (prixVente !== undefined) {
-      //console.log(prixVente)
       const prixVenteToCreate = new PrixVente();
       prixVenteToCreate.titre = prixVente.titre;
       prixVenteToCreate.categorieId = +prixVente.categorie;

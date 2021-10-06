@@ -47,7 +47,6 @@ export class ApiService {
     }
 
     public async getApi<T>(options: GetOptions): Promise<T> {
-        console.log(this.jwt);
         try {
             const axiosResponse = await this.axiosClient.request<T>({
                 headers: {

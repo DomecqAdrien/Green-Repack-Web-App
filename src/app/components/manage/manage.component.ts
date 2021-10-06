@@ -14,6 +14,7 @@ export class ManageComponent implements OnInit {
   categories: Categorie[] = [];
   users: Utilisateur[] = [];
   isLoaded = false;
+  isCatLoaded = false;
   userInfos: Utilisateur;
 
   constructor(
@@ -26,10 +27,16 @@ export class ManageComponent implements OnInit {
   }
 
   async getData(): Promise<void> {
-    this.categories = await this.produitService.getCategories();
-    this.users = await this.userService.getUsersByRole("En attente")
+    await this.getCategories();
+    this.users = await this.userService.getUsersByRole('En attente');
     this.userInfos = await this.userService.getUser(localStorage.getItem('green-repack-user-email'));
     this.isLoaded = true;
+  }
+
+  async getCategories(): Promise<void> {
+    this.isCatLoaded = false;
+    this.categories = await this.produitService.getCategories();
+    this.isCatLoaded = true;
   }
 
 }

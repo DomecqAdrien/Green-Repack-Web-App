@@ -123,14 +123,12 @@ export class UserService extends ApiService {
 
   getRole(): string {
     const decoded: any = jwt_decode(this.getToken());
-    console.log(decoded);
     return decoded.role;
   }
 
 
   getTokenExpirationDate(token: string): Date {
     const decoded: any = jwt_decode(token);
-    console.log(decoded);
 
     if (decoded.exp === undefined) { return null; }
 
@@ -142,8 +140,6 @@ export class UserService extends ApiService {
   isTokenExpired(token?: string): boolean {
     if (!token) { token = this.getToken(); }
     if (!token) { return true; }
-
-    console.log(token);
 
     const date = this.getTokenExpirationDate(token);
     if (date === undefined) { return false; }

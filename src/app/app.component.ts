@@ -34,10 +34,6 @@ export class AppComponent implements OnInit{
     this.userService.isTechnicien.subscribe(isTechnicien => this.isTechnicien = isTechnicien);
     this.userService.isAdmin.subscribe(isAdmin => this.isAdministrateur = isAdmin);
     this.panierService.panier.subscribe(panier => this.panier = panier);
-    console.log(this.isMarchand);
-    console.log(this.isTechnicien);
-    console.log(this.isAdministrateur);
-    console.log(this.panier.length);
   }
 
   logout(): void{

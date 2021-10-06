@@ -11,7 +11,7 @@ import { CreateTechnicienComponent } from '../create-technicien/create-technicie
   styleUrls: ['./create-caracteristique.component.scss']
 })
 export class CreateCaracteristiqueComponent {
-  
+
   form: FormGroup;
   categories: Categorie[];
   unites: Unite[];
@@ -22,12 +22,12 @@ export class CreateCaracteristiqueComponent {
     private dialogRef: MatDialogRef<CreateCaracteristiqueComponent>
   ) {
     this.categories = data.categories;
-    console.log(data)
+    console.log(data);
     this.unites = data.unites;
     this.form = this.formBuilder.group({
       libelle: ['', Validators.required],
       categorie: ['', Validators.required],
-      unite: ['', Validators.required],
+      unite: [''],
     });
   }
 

@@ -25,13 +25,12 @@ export class ManageUnitesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPrixVente();
+    this.getUnites();
   }
 
-  async getPrixVente(): Promise<void> {
+  async getUnites(): Promise<void> {
     this.unites = await this.produitService.getUnites();
     this.dataSource = new MatTableDataSource(this.unites);
-    console.log(this.unites);
     this.isLoaded = true;
   }
 
@@ -41,9 +40,8 @@ export class ManageUnitesComponent implements OnInit {
       height: '45%'
     }).afterClosed().toPromise();
     if (unite !== undefined) {
-      console.log(unite)
       const aa = await this.produitService.createUnite(unite);
-      console.log(aa);
+      this.getUnites();
     }
   }
 }
