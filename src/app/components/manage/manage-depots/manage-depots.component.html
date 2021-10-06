@@ -26,7 +26,7 @@
     </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row.id)"></mat-row>
   </mat-table>
   <br/>
   <button mat-raised-button color="warn" (click)="addDepot()">Ajouter un dépôt</button>

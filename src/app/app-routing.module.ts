@@ -19,6 +19,7 @@ import { ManageTechniciensComponent } from './components/manage/manage-technicie
 import { IsAdmin } from './services/guard/roles/is-admin.service';
 import { IsTechnicien } from './services/guard/roles/is-technicien.service';
 import { IsMarchand } from './services/guard/roles/is-marchand.service';
+import { DepotDetailsComponent } from './components/manage/manage-depots/depot-details/depot-details.component';
 const routes: Routes = [
 
   // user
@@ -45,6 +46,9 @@ const routes: Routes = [
   { path: 'manage', component: ManageComponent, canActivate: [AuthGuard, IsTechnicien] },
   { path: 'manage/techniciens', component: ManageTechniciensComponent, canActivate: [AuthGuard, IsAdmin] },
   { path: 'manage/ventes/:id', component: SellDetailComponent, canActivate: [AuthGuard, IsTechnicien] },
+
+  // Depot details
+  { path: 'manage/depot/:id', component: DepotDetailsComponent, canActivate: [AuthGuard, IsTechnicien] },
 
   { path: '**', redirectTo: 'produits'}
 ];

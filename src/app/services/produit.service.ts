@@ -12,7 +12,7 @@ import { ApiService } from './api/api.service';
   providedIn: 'root'
 })
 export class ProduitService extends ApiService{
-  
+
 
   constructor(errorHandler: ErrorHandler) {
     super(errorHandler);
@@ -23,7 +23,13 @@ export class ProduitService extends ApiService{
       url: '/produits'
     });
   }
-  
+
+  public async getProduitsByDepot(id: Number): Promise<any>{
+    return await this.getApi<any>({
+      url: '/produits/depot/' +id
+    });
+  }
+
   public async getSellableProduits(): Promise<any> {
     return await this.getApi<any>({
       url: '/produits/a-vendre'

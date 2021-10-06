@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Depot } from 'src/app/model/Depot';
 import { DepotService } from 'src/app/services/depot.service';
 import { CreateDepotComponent } from '../../dialog/create-depot/create-depot.component';
@@ -19,7 +20,8 @@ export class ManageDepotsComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private depotService: DepotService
+    private depotService: DepotService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,11 @@ export class ManageDepotsComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.depots);
     console.log(this.depots);
     this.isLoaded = true;
+  }
+
+  showDetails(id: number): void{
+    console.log(id);
+    this.router.navigate(['../manage/depot/' + id]);
   }
 
   async addDepot(): Promise<void> {

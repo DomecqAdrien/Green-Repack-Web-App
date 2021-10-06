@@ -1,0 +1,23 @@
+<div class="container">
+
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="titre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="categorie"> Titre </mat-header-cell>
+          <mat-cell *matCellDef="let produit"> {{ produit.titre }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="etat">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="etat"> Etat </mat-header-cell>
+          <mat-cell *matCellDef="let produit"> {{ produit.etat }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="statut">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="statut"> Statut </mat-header-cell>
+          <mat-cell *matCellDef="let produit"> {{ produit.statut }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
