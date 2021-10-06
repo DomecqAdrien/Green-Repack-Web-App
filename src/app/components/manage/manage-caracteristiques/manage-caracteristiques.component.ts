@@ -66,7 +66,7 @@ export class ManageCaracteristiquesComponent implements OnInit {
   async addCaracteristique(): Promise<void> {
     const carac = await this.dialog.open(CreateCaracteristiqueComponent, {
       width: '30%',
-      height: '20%',
+      height: '45%',
       data: {
         categories: this.categories,
         unites: this.unites
