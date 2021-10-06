@@ -36,7 +36,7 @@ export class ManageDepotsComponent implements OnInit {
   async addDepot(): Promise<void> {
     const depot = await this.dialog.open(CreateDepotComponent, {
       width: '30%',
-      height: '20%'
+      height: '65%'
     }).afterClosed().toPromise();
     if (depot !== undefined) {
       console.log(depot)

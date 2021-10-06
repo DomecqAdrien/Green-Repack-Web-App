@@ -38,7 +38,7 @@ export class ManageUnitesComponent implements OnInit {
   async addUnite(): Promise<void> {
     const unite = await this.dialog.open(CreateUniteComponent, {
       width: '30%',
-      height: '20%'
+      height: '45%'
     }).afterClosed().toPromise();
     if (unite !== undefined) {
       console.log(unite)

@@ -43,7 +43,7 @@ export class ManagePrixComponent implements OnInit {
   async addPrixVente(): Promise<void> {
     const prixVente = await this.dialog.open(CreatePrixComponent, {
       width: '30%',
-      height: '20%',
+      height: '45%',
       data: {
         categories: this.categories
       }
