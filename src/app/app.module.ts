@@ -45,6 +45,7 @@ import { ManageDepotsComponent } from './components/manage/manage-depots/manage-
 import { CreateDepotComponent } from './components/dialog/create-depot/create-depot.component';
 import { CreateContreOffreComponent } from './components/dialog/create-contre-offre/create-contre-offre.component';
 import { DepotDetailsComponent } from './components/manage/manage-depots/depot-details/depot-details.component';
+import { VenteEnAttenteProduitComponent } from './components/manage/manage-ventes/vente-en-attente-produit/vente-en-attente-produit.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { DepotDetailsComponent } from './components/manage/manage-depots/depot-d
     ManageDepotsComponent,
     CreateDepotComponent,
     CreateContreOffreComponent,
-    DepotDetailsComponent
+    DepotDetailsComponent,
+    VenteEnAttenteProduitComponent
   ],
   imports: [
     BrowserModule,

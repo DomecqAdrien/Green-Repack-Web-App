@@ -35,7 +35,6 @@ export class SuccessComponent implements OnInit {
           queryParamsHandling: 'merge'
         });
       }
-      
     } else {
       this.router.navigate(['/']);
     }
