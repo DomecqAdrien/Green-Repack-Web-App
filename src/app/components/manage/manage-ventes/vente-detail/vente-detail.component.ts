@@ -35,7 +35,7 @@ export class SellDetailComponent implements OnInit {
   loading = false;
   id: number;
   etats = ['Neuf', 'Peu utilisé', 'Dégradé'];
-  statuts = ['En cours', 'Accepté', 'Refusé'];
+  statuts = ['En cours', 'En attente de produit' , 'Accepté', 'Refusé'];
 
 
   constructor(

@@ -1,23 +1,34 @@
 <div class="container">
-    <mat-tab-group *ngIf="isLoaded">
-      <mat-tab label="Catégories">
-        <app-manage-categories [categories]="categories"></app-manage-categories>
-      </mat-tab>
-      <mat-tab label="Caractéristiques">
-        <app-manage-caracteristiques *ngIf="isCatLoaded" [categories]="categories" (getCategories)="getCategories()"></app-manage-caracteristiques>
-      </mat-tab>
-      <mat-tab label="Unités">
-        <app-manage-unites></app-manage-unites>
-      </mat-tab>
-      <mat-tab label="Dépôts" *ngIf="userInfos.role === 'Administrateur'">
-        <app-manage-depots></app-manage-depots>
-      </mat-tab>
-      <mat-tab label="Prix par défaut">
-        <app-manage-prix [categories]="categories"></app-manage-prix>
-      </mat-tab>
-      <mat-tab label="Utilisateurs en attente" *ngIf="userInfos.role === 'Administrateur'">
-        <app-manage-users [users]="users"></app-manage-users>
-      </mat-tab>
-
-    </mat-tab-group>
+  
+  <div class="loading-container" *ngIf="!isLoaded">
+    <mat-spinner color="primary"></mat-spinner>
   </div>
+
+  <mat-tab-group *ngIf="isLoaded">
+    <mat-tab label="Catégories">
+      <app-manage-categories [categories]="categories"></app-manage-categories>
+    </mat-tab>
+    <mat-tab label="Caractéristiques">
+      <app-manage-caracteristiques
+        *ngIf="isCatLoaded"
+        [categories]="categories"
+        (getCategories)="getCategories()"
+      ></app-manage-caracteristiques>
+    </mat-tab>
+    <mat-tab label="Unités">
+      <app-manage-unites></app-manage-unites>
+    </mat-tab>
+    <mat-tab label="Dépôts" *ngIf="userInfos.role === 'Administrateur'">
+      <app-manage-depots></app-manage-depots>
+    </mat-tab>
+    <mat-tab label="Prix par défaut">
+      <app-manage-prix [categories]="categories"></app-manage-prix>
+    </mat-tab>
+    <mat-tab
+      label="Utilisateurs en attente"
+      *ngIf="userInfos.role === 'Administrateur'"
+    >
+      <app-manage-users [users]="users"></app-manage-users>
+    </mat-tab>
+  </mat-tab-group>
+</div>

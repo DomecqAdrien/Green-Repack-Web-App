@@ -9,6 +9,7 @@ import { ProduitService } from 'src/app/services/produit.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Categorie } from 'src/app/model/Categorie';
 import { PrixVente } from 'src/app/model/PrixVente';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-vente-create',
@@ -46,7 +47,8 @@ export class SellFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private produitService: ProduitService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private router: Router
    ) { }
 
   async ngOnInit(): Promise<any> {
@@ -133,7 +135,8 @@ export class SellFormComponent implements OnInit {
     }
 
     console.log(newVente);
-    this.produitService.createProduit(newVente);
+    await this.produitService.createProduit(newVente);
+    this.router.navigate(['/compte'], {queryParams: { vente: 'success' }});
   }
 
   updateDefaultFields(): any {

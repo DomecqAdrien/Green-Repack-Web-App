@@ -14,7 +14,7 @@ import { AuthGuard } from './services/guard/auth.guard.service';
 import { ManageUnitesComponent } from './components/manage/manage-unites/manage-unites.component';
 import { ManageCaracteristiquesComponent } from './components/manage/manage-caracteristiques/manage-caracteristiques.component';
 import { ManageComponent } from './components/manage/manage.component';
-import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import { CompteComponent } from './components/user/compte/compte.component';
 import { ManageTechniciensComponent } from './components/manage/manage-techniciens/manage-techniciens.component';
 import { IsAdmin } from './services/guard/roles/is-admin.service';
 import { IsTechnicien } from './services/guard/roles/is-technicien.service';
@@ -25,7 +25,7 @@ const routes: Routes = [
   // user
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'compte', component: UserSettingsComponent, canActivate: [AuthGuard] },
+  { path: 'compte', component: CompteComponent, canActivate: [AuthGuard] },
 
   // product
   { path: 'produit/:id', component: ProductDetailComponent },

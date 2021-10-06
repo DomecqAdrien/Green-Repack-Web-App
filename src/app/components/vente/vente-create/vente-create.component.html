@@ -56,7 +56,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>{{ champ.libelle }}</mat-label>
                 <input formControlName="carac_{{champ.id}}" type="{{ champ.unite.type }}" class="form-control" matInput>
-                <span matSuffix>{{champ.unite.abreviation}}</span>
+                <span *ngIf="champ.unite.abreviation !== null" matSuffix>{{champ.unite.abreviation}}</span>
             </mat-form-field>
         </div>
     

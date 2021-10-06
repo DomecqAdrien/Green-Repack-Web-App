@@ -28,7 +28,7 @@ import { ManageComponent } from './components/manage/manage.component';
 import { ManageCaracteristiquesComponent } from './components/manage/manage-caracteristiques/manage-caracteristiques.component';
 import { ManageUnitesComponent } from './components/manage/manage-unites/manage-unites.component';
 import { ManagePrixComponent } from './components/manage/manage-prix/manage-prix.component';
-import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import { CompteComponent } from './components/user/compte/compte.component';
 import { VentesEnCoursComponent } from './components/manage/manage-ventes/ventes-en-cours/ventes-en-cours.component';
 import { VentesAnnuleesComponent } from './components/manage/manage-ventes/ventes-annulees/ventes-annulees.component';
 import { ConfirmComponent } from './components/dialog/confirm/confirm.component';
@@ -69,7 +69,7 @@ import { DepotDetailsComponent } from './components/manage/manage-depots/depot-d
     ManageCaracteristiquesComponent,
     ManageUnitesComponent,
     ManagePrixComponent,
-    UserSettingsComponent,
+    CompteComponent,
     VentesAnnuleesComponent,
     ConfirmComponent,
     ManageCategoriesComponent,

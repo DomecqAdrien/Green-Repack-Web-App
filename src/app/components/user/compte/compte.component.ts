@@ -18,11 +18,11 @@ import { environment } from 'src/environments/environment';
 import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-user-settings',
-  templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.scss']
+  selector: 'app-compte',
+  templateUrl: './compte.component.html',
+  styleUrls: ['./compte.component.scss']
 })
-export class UserSettingsComponent implements OnInit {
+export class CompteComponent implements OnInit {
 
   stripePromise = loadStripe(environment.stripePublicKey);
   form: FormGroup;
@@ -57,7 +57,7 @@ export class UserSettingsComponent implements OnInit {
     this.getData();
   }
 
-  async checkRetour(): Promise<void> {
+  async checkParams(): Promise<void> {
     this.route.queryParams.subscribe(async params => {
       if (params.key !== undefined) {
         await this.venteService.acceptRetour(params.key);
@@ -66,11 +66,14 @@ export class UserSettingsComponent implements OnInit {
           queryParamsHandling: 'merge'
         });
       }
+      if (params.vente !== undefined) {
+        this.alertService.info('Votre vente a été créée avec succès');
+      }
     });
   }
 
   async getData(): Promise<void> {
-    await this.checkRetour();
+    await this.checkParams();
     this.userInfos = await this.userService.getUser(localStorage.getItem('green-repack-user-email'));
     this.email = this.userInfos.email;
     if (this.userInfos.role === 'En attente'){

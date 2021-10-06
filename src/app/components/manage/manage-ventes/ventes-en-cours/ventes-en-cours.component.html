@@ -1,6 +1,10 @@
 <div class="container">
-    <mat-table *ngIf="isLoaded" [dataSource]="dataSource" matSort>
+    
+    <div class="loading-container" *ngIf="!isLoaded">
+        <mat-spinner color="primary"></mat-spinner>
+    </div>
 
+    <mat-table *ngIf="isLoaded" [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header="id"> Id </mat-header-cell>
             <mat-cell *matCellDef="let vente"> {{ vente.id }} </mat-cell>

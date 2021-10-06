@@ -10,10 +10,10 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./manage-users.component.scss']
 })
 export class ManageUsersComponent implements OnInit {
-  
+
   @Input() users: Utilisateur[];
   dataSource = new MatTableDataSource<Utilisateur>([]);
-  displayedColumns = ['email','accept', 'refuse'];
+  displayedColumns = ['email', 'accept', 'refuse'];
 
   constructor(
     private dialog: MatDialog,
@@ -24,21 +24,17 @@ export class ManageUsersComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.users);
   }
 
-  async acceptUser(user: Utilisateur){
-    console.log(user.email)
-    const role = "Marchand";
-    const updatedUser = new Utilisateur();
-    updatedUser.role =role;
-    const response = this.userService.updateUser(user.email, updatedUser);
-    console.log(response);
-  }
-
-  async refuseUser(user: Utilisateur){
-    console.log(user.email)
-    const role = "Utilisateur";
+  async acceptUser(user: Utilisateur): Promise<void> {
+    const role = 'Marchand';
     const updatedUser = new Utilisateur();
     updatedUser.role = role;
     const response = this.userService.updateUser(user.email, updatedUser);
-    console.log(response);
+  }
+
+  async refuseUser(user: Utilisateur): Promise<void> {
+    const role = 'Utilisateur';
+    const updatedUser = new Utilisateur();
+    updatedUser.role = role;
+    const response = this.userService.updateUser(user.email, updatedUser);
   }
 }
