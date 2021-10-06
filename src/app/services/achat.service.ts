@@ -15,4 +15,18 @@ export class AchatService extends ApiService{
        url: '/achats/user/' + email
      });
    }
+
+   public async checkout(data: any): Promise<string> {
+    return await this.postApi<any>({
+        url: '/checkout',
+        data
+    });
+  }
+
+  public async validateAchat(key: any): Promise<any> {
+    return await this.postApi<any>({
+      url: '/achat/validate',
+      data: key
+    });
+  }
 }

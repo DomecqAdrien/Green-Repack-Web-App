@@ -68,7 +68,7 @@ export class SellFormComponent implements OnInit {
     const categorie = this.categories.filter(c => c.id === +event.value)[0];
 
     console.log(categorie);
-    
+
     this.catPrixVente = this.prixVente.filter(p => p.categorieId === categorie.id);
 
     console.log(this.catPrixVente);
@@ -81,7 +81,7 @@ export class SellFormComponent implements OnInit {
 
 
     this.updateDefaultFields();
-    
+
     this.caracteristiques = categorie.caracteristiques;
     const formWithCaracs = {};
     categorie.caracteristiques.forEach((carac: Caracteristique) => {

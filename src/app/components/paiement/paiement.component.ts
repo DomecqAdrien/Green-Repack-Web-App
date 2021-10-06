@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { loadStripe } from '@stripe/stripe-js';
-import { StripeService } from 'ngx-stripe';
 import { Article } from 'src/app/model/Article';
-import { PaiementService } from 'src/app/services/paiement.service';
+import { AchatService } from 'src/app/services/achat.service';
 import { PanierService } from 'src/app/services/panier.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +22,7 @@ export class PaiementComponent implements OnInit {
   total: number;
 
   constructor(
-    private paiementService: PaiementService,
+    private achatService: AchatService,
     private panierService: PanierService,
     private router: Router
   ) { }
@@ -57,7 +56,7 @@ export class PaiementComponent implements OnInit {
       const articles =  this.panierService.getPanier();
       const ids: number[] = [];
       articles.forEach(article => ids.push(article.id));
-      const sessionId = await this.paiementService.checkout(ids);
+      const sessionId = await this.achatService.checkout(ids);
       const stripe = await this.stripePromise;
       await stripe.redirectToCheckout({ sessionId });
     }catch (err) {
