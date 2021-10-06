@@ -23,10 +23,10 @@ export class AchatService extends ApiService{
     });
   }
 
-  public async validateAchat(key: any): Promise<any> {
-    return await this.postApi<any>({
+  public async validateAchat(transactionId: any): Promise<any> {
+    return await this.putApi<any>({
       url: '/achat/validate',
-      data: key
+      data: {transactionId}
     });
   }
 }

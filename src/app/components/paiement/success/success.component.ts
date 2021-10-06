@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AchatService } from 'src/app/services/achat.service';
 import { PanierService } from 'src/app/services/panier.service';
@@ -22,17 +22,22 @@ export class SuccessComponent implements OnInit {
   }
 
   async checkRetour(): Promise<void> {
-    this.route.queryParams.subscribe(async params => {
-      if (params.key !== undefined) {
-        // await this.achatService.validateAchat(params.key);
+    const key = this.route.snapshot.queryParams.key;
+    if (key !== undefined) {
+      const response = await this.achatService.validateAchat(key);
+      console.log(response);
+      if (response.status.toString() === 'Achat non trouvé') {
+        this.router.navigate(['/']);
+      } else {
+        this.panierSerive.resetPanier();
         this.router.navigate([], {
           queryParams: { key: null },
           queryParamsHandling: 'merge'
         });
-      } else {
-        // this.router.navigate(['/']);
       }
-    });
+      
+    } else {
+      this.router.navigate(['/']);
+    }
   }
-
 }

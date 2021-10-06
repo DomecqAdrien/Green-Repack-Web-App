@@ -58,18 +58,18 @@ export class CompteComponent implements OnInit {
   }
 
   async checkParams(): Promise<void> {
-    this.route.queryParams.subscribe(async params => {
-      if (params.key !== undefined) {
-        await this.venteService.acceptRetour(params.key);
-        this.router.navigate([], {
-          queryParams: { key: null },
-          queryParamsHandling: 'merge'
-        });
-      }
-      if (params.vente !== undefined) {
-        this.alertService.info('Votre vente a été créée avec succès');
-      }
-    });
+    const key = this.route.snapshot.queryParams.key;
+    const vente = this.route.snapshot.queryParams.vente;
+    if (key !== undefined) {
+      await this.venteService.acceptRetour(key);
+      this.router.navigate([], {
+        queryParams: { key: null },
+        queryParamsHandling: 'merge'
+      });
+    }
+    if (vente !== undefined) {
+      this.alertService.info('Votre vente a été créée avec succès');
+    }
   }
 
   async getData(): Promise<void> {
@@ -119,6 +119,8 @@ export class CompteComponent implements OnInit {
 
       const a = await this.offreService.updateOfferStatus(offre.id, statut);
       console.log(a);
+      this.alertService.info('Votre choix a bien été pris en compte');
+      //this.offres.
   }
 
   async updateRetour(retour: Retour, statut: string): Promise<void> {
