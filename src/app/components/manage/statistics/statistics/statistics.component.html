@@ -1,0 +1,16 @@
+<div class="container" *ngIf="statistique">
+    <h2>Nombre de marchands sur la plateforme : {{ statistique.numberOfMarchands }}</h2>
+    <br/>
+    <h2>Nombre d'utilisateurs simples sur la plateforme : {{ statistique.numberOfUsers }}</h2>
+    <br/>
+    <h2>Nombre d'utilisateurs en attente de devenir marchand sur la plateforme : {{ statistique.numberOfInWait }}</h2>
+    <br/>
+    <h2>Nombre de produit rachetés par Green repack : {{ statistique.numberOfSuccessVentes }}</h2>
+    <br/>
+    <h3>Somme dépensée : {{ statistique.sommeVente }} €</h3>
+    <br/>
+    <h2>Nombre de ventes effectuées sur Green repack : {{ statistique.numberOfSuccessAchats }} </h2>
+    <br/>
+    <h3>Somme récoltée : {{ statistique.sommeAchat }} €</h3>
+    <br/>
+</div>

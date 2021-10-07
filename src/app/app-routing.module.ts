@@ -20,6 +20,7 @@ import { IsAdmin } from './services/guard/roles/is-admin.service';
 import { IsTechnicien } from './services/guard/roles/is-technicien.service';
 import { IsMarchand } from './services/guard/roles/is-marchand.service';
 import { DepotDetailsComponent } from './components/manage/manage-depots/depot-details/depot-details.component';
+import { StatisticsComponent } from './components/manage/statistics/statistics/statistics.component';
 const routes: Routes = [
 
   // user
@@ -49,6 +50,9 @@ const routes: Routes = [
 
   // Depot details
   { path: 'manage/depot/:id', component: DepotDetailsComponent, canActivate: [AuthGuard, IsTechnicien] },
+
+  // Statistiques StatisticsComponent
+  { path: 'statistiques', component: StatisticsComponent, canActivate: [AuthGuard, IsTechnicien] },
 
   { path: '**', redirectTo: 'produits'}
 ];
