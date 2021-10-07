@@ -18,10 +18,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SellFormComponent implements OnInit {
 
-  loading = false;
   form: FormGroup;
-
+  isLoading = false;
   isCategorySelected = false;
+  hasImage = true;
 
 
   files: File[] = [];
@@ -36,8 +36,17 @@ export class SellFormComponent implements OnInit {
   defaultFields = {
     titre: ['', Validators.required],
     marque: ['', Validators.required],
-    marqueFilter: [''],
-    categorie: [''],
+    titreFilter: [''],
+    categorie: ['', Validators.required],
+    description: [''],
+    etat: ['', Validators.required]
+  };
+
+  defaultFields2 = {
+    titre: ['', Validators.required],
+    marque: ['', Validators.required],
+    titreFilter: [''],
+    categorie: ['', Validators.required],
     description: [''],
     etat: ['', Validators.required]
   };
@@ -52,31 +61,22 @@ export class SellFormComponent implements OnInit {
    ) { }
 
   async ngOnInit(): Promise<any> {
-
+    console.log(this.defaultFields);
     this.form = this.formBuilder.group(this.defaultFields);
     this.prixVente = await this.produitService.getPrixProduits();
-    console.log(this.prixVente);
-
     this.categories = await this.produitService.getCategories();
-    console.log(this.categories);
-
-    const caracs = await this.produitService.getCaracteristiques();
-    console.log(caracs);
   }
 
   selectCategory(event: any): void{
+
     this.isCategorySelected = true;
 
     const categorie = this.categories.filter(c => c.id === +event.value)[0];
-
-    console.log(categorie);
-
     this.catPrixVente = this.prixVente.filter(p => p.categorieId === categorie.id);
 
-    console.log(this.catPrixVente);
     this.filteredPrixVente.next(this.catPrixVente.slice());
 
-    this.form.controls.marqueFilter.valueChanges
+    this.form.controls.titreFilter.valueChanges
       .subscribe(() => {
         this.filterMarques();
     });
@@ -84,13 +84,16 @@ export class SellFormComponent implements OnInit {
 
     this.updateDefaultFields();
 
+    //console.log(this.defaultFields)
     this.caracteristiques = categorie.caracteristiques;
     const formWithCaracs = {};
     categorie.caracteristiques.forEach((carac: Caracteristique) => {
       this.caracsInstances[carac.id] = carac;
-      formWithCaracs['carac_' + carac.id] = new FormControl('');
+      formWithCaracs['carac_' + carac.id] = ['', Validators.required];
     });
     Object.assign(formWithCaracs, this.defaultFields);
+
+    console.log(formWithCaracs);
     this.form = this.formBuilder.group(formWithCaracs);
   }
 
@@ -99,7 +102,8 @@ export class SellFormComponent implements OnInit {
       return;
     }
 
-    let search = this.form.value.marqueFilter;
+    this.isLoading = true;
+    let search = this.form.value.titreFilter;
     if (!search) {
       this.filteredPrixVente.next(this.catPrixVente.slice());
       return;
@@ -108,11 +112,20 @@ export class SellFormComponent implements OnInit {
     }
 
     this.filteredPrixVente.next(
-      this.catPrixVente.filter(bank => bank.titre.toLowerCase().indexOf(search) > -1)
+      this.catPrixVente.filter(prix => prix.titre.toLowerCase().indexOf(search) > -1)
     );
   }
 
   async onSubmit(): Promise<any> {
+    if (this.files.length === 0) {
+      console.log('no image');
+      this.hasImage = false;
+      return;
+    }
+    if (this.form.invalid) {
+      return;
+    }
+    
     const values = (this.form.value);
     const newVente = new Vente(
       'En cours',
@@ -141,11 +154,12 @@ export class SellFormComponent implements OnInit {
 
   updateDefaultFields(): any {
     Object.keys(this.defaultFields).forEach(key => {
-      this.defaultFields[key] = this.form.value[key];
+      this.defaultFields[key] = [this.form.value[key], this.form.controls[key].validator];
     });
   }
 
   onSelect(event: any): void {
+    this.hasImage = true;
     this.files.push(...event.addedFiles);
   }
 

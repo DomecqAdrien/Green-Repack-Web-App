@@ -72,6 +72,26 @@ export class CompteComponent implements OnInit {
     }
   }
 
+  async getVentes(): Promise<void> {
+    this.ventes = await this.venteService.getVentesByUserAndFinished(this.email);
+    this.dataSourceVentes = new MatTableDataSource(this.ventes);
+  }
+
+  async getOffres(): Promise<void> {
+    this.offres = await this.offreService.getOffersByUser(this.email);
+    this.dataSourceOffres = new MatTableDataSource(this.offres);
+  }
+
+  async getRetours(): Promise<void> {
+    this.retours = await this.venteService.getRetoursByUser(this.email);
+    this.dataSourceRetours = new MatTableDataSource(this.retours);
+  }
+
+  async getAchats(): Promise<void> {
+    this.achats = await this.achatService.getAchatsByUser(this.email);
+    this.dataSourceAchats = new MatTableDataSource(this.achats);
+  }
+
   async getData(): Promise<void> {
     await this.checkParams();
     this.userInfos = await this.userService.getUser(localStorage.getItem('green-repack-user-email'));
@@ -80,22 +100,12 @@ export class CompteComponent implements OnInit {
       this.alertService.info('Vous êtes en attente pour devenir marchand');
     }
     if (this.userInfos.role === 'Marchand') {
-
-      this.ventes = await this.venteService.getVentesByUserAndFinished(this.email);
-      this.offres = await this.offreService.getOffersByUser(this.email);
-      this.achats = await this.achatService.getAchatsByUser(this.email);
-      this.retours = await this.venteService.getRetoursByUser(this.email);
-
-      this.dataSourceVentes = new MatTableDataSource(this.ventes);
-      this.dataSourceOffres = new MatTableDataSource(this.offres);
-      this.dataSourceAchats = new MatTableDataSource(this.achats);
-      this.dataSourceRetours = new MatTableDataSource(this.retours);
-
-      console.log(this.ventes);
-      console.log(this.achats);
-      console.log(this.offres);
-      console.log(this.retours);
+      await this.getVentes();
+      await this.getOffres();
+      await this.getRetours();
     }
+
+    await this.getAchats();
 
     this.isLoaded = true;
     this.form = this.formBuilder.group({
@@ -120,7 +130,8 @@ export class CompteComponent implements OnInit {
       const a = await this.offreService.updateOfferStatus(offre.id, statut);
       console.log(a);
       this.alertService.info('Votre choix a bien été pris en compte');
-      //this.offres.
+      this.getOffres();
+      this.getVentes();
   }
 
   async updateRetour(retour: Retour, statut: string): Promise<void> {

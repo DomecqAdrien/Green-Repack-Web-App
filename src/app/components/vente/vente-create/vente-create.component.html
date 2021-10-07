@@ -21,12 +21,12 @@
                 <mat-label>Titre</mat-label>
                 <mat-select formControlName="titre">
                     <mat-option>
-                        <ngx-mat-select-search formControlName="marqueFilter" placeholderLabel="Rechercher..." 
+                        <ngx-mat-select-search formControlName="titreFilter" placeholderLabel="Rechercher..." 
                         noEntriesFoundLabel="Pas de marque trouvée">
                         </ngx-mat-select-search>
                     </mat-option>
-                    <p *ngFor="let titre of filteredPrixVente | async">
-                        <mat-option value="{{ titre.titre }}">{{ titre.titre }}</mat-option>
+                    <p *ngFor="let prix of filteredPrixVente | async">
+                        <mat-option value="{{ prix.titre }}">{{ prix.titre }}</mat-option>
                     </p>
                 </mat-select>
             </mat-form-field>
@@ -62,8 +62,8 @@
     
         <hr>
         <h2>Images</h2>
-        <ngx-dropzone (change)="onSelect($event)">
-            <ngx-dropzone-label>Déposez vos images ici</ngx-dropzone-label>
+        <ngx-dropzone (change)="onSelect($event)" [ngStyle]="{'border': hasImage ? '2px dashed grey': '2px dashed red' }">
+            <ngx-dropzone-label [ngStyle]="{'color': hasImage ? 'grey': 'red' }">Déposez vos images ici</ngx-dropzone-label>
             <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>
@@ -71,8 +71,8 @@
 
         <hr>
         <div>
-            <button [disabled]="loading" class="btn btn-primary">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            <button [disabled]="isLoading" class="btn btn-primary">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1"></span>
                 Soumettre
             </button>
         </div>
