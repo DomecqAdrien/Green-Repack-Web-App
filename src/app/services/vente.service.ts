@@ -12,24 +12,11 @@ export class VenteService extends ApiService {
     super(errorHandler);
   }
 
-  public async getVentesEnCours(): Promise<Vente[]> {
+  public async getVentesByStatus(status: string): Promise<Vente[]> {
     return await this.getApi({
-      url: '/ventes/en-cours'
+      url: '/ventes/' + status
     });
   }
-
-  public async getVentesAnnulees(): Promise<Vente[]> {
-    return await this.getApi({
-      url: '/ventes/annule'
-    });
-  }
-
-  public async getVentesTerminees(): Promise<Vente[]> {
-    return await this.getApi({
-      url: '/ventes/termine'
-    });
-  }
-
   public async getVenteById(id: number): Promise<Vente> {
     return await this.getApi({
       url: '/vente/infos/' + id

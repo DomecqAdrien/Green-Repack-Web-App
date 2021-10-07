@@ -10,7 +10,6 @@ import { ProductListComponent } from './components/produit/product-list/product-
 import { ProductDetailComponent } from './components/produit/product-detail/product-detail.component';
 import { SellComponent } from './components/manage/manage-ventes/manage-ventes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SellCompletedComponent } from './components/manage/manage-ventes/ventes-terminees/ventes-terminees.component';
 import { SellDetailComponent } from './components/manage/manage-ventes/vente-detail/vente-detail.component';
 import { SellFormComponent } from './components/vente/vente-create/vente-create.component';
 import { MaterialModule } from './material/material.module';
@@ -29,8 +28,7 @@ import { ManageCaracteristiquesComponent } from './components/manage/manage-cara
 import { ManageUnitesComponent } from './components/manage/manage-unites/manage-unites.component';
 import { ManagePrixComponent } from './components/manage/manage-prix/manage-prix.component';
 import { CompteComponent } from './components/user/compte/compte.component';
-import { VentesEnCoursComponent } from './components/manage/manage-ventes/ventes-en-cours/ventes-en-cours.component';
-import { VentesAnnuleesComponent } from './components/manage/manage-ventes/ventes-annulees/ventes-annulees.component';
+import { VentesEnCoursComponent } from './components/manage/manage-ventes/ventes-list/ventes-list.component';
 import { ConfirmComponent } from './components/dialog/confirm/confirm.component';
 import { ManageCategoriesComponent } from './components/manage/manage-categories/manage-categories.component';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
@@ -45,7 +43,6 @@ import { ManageDepotsComponent } from './components/manage/manage-depots/manage-
 import { CreateDepotComponent } from './components/dialog/create-depot/create-depot.component';
 import { CreateContreOffreComponent } from './components/dialog/create-contre-offre/create-contre-offre.component';
 import { DepotDetailsComponent } from './components/manage/manage-depots/depot-details/depot-details.component';
-import { VenteEnAttenteProduitComponent } from './components/manage/manage-ventes/vente-en-attente-produit/vente-en-attente-produit.component';
 
 
 @NgModule({
@@ -57,7 +54,6 @@ import { VenteEnAttenteProduitComponent } from './components/manage/manage-vente
     ProductListComponent,
     ProductDetailComponent,
     SellComponent,
-    SellCompletedComponent,
     VentesEnCoursComponent,
     SellDetailComponent,
     SellFormComponent,
@@ -71,7 +67,6 @@ import { VenteEnAttenteProduitComponent } from './components/manage/manage-vente
     ManageUnitesComponent,
     ManagePrixComponent,
     CompteComponent,
-    VentesAnnuleesComponent,
     ConfirmComponent,
     ManageCategoriesComponent,
     ManageTechniciensComponent,
@@ -85,7 +80,6 @@ import { VenteEnAttenteProduitComponent } from './components/manage/manage-vente
     CreateDepotComponent,
     CreateContreOffreComponent,
     DepotDetailsComponent,
-    VenteEnAttenteProduitComponent
   ],
   imports: [
     BrowserModule,

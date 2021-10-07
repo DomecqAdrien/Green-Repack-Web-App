@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Vente } from 'src/app/model/Vente';
 import { VenteService } from 'src/app/services/vente.service';
 
 @Component({
-  selector: 'app-vente-encours',
-  templateUrl: './ventes-en-cours.component.html',
-  styleUrls: ['./ventes-en-cours.component.scss']
+  selector: 'app-vente-list',
+  templateUrl: './ventes-list.component.html',
+  styleUrls: ['./ventes-list.component.scss']
 })
 export class VentesEnCoursComponent implements OnInit {
 
+  @Input() type: string;
+  @Input() editable: boolean;
   isLoaded = false;
-
   ventes: Vente[] = [];
   dataSource = new MatTableDataSource<Vente>([]);
 
@@ -28,7 +29,8 @@ export class VentesEnCoursComponent implements OnInit {
   }
 
   async getVentes(): Promise<any> {
-    this.ventes = await this.venteService.getVentesEnCours();
+    console.log(this.type);
+    this.ventes = await this.venteService.getVentesByStatus(this.type);
     console.log(this.ventes);
     this.dataSource = new MatTableDataSource(this.ventes);
     console.log(this.dataSource.data);
@@ -37,8 +39,10 @@ export class VentesEnCoursComponent implements OnInit {
   }
 
   showDetails(id: number): void{
-    console.log(id);
-    this.router.navigate(['../manage/ventes/' + id]);
+    if (this.editable){
+      console.log(id);
+      this.router.navigate(['../manage/ventes/' + id]);
+    }
   }
 
 }

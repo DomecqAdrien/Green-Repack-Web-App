@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellComponent implements OnInit {
 
+  produitEnAttente = 'produit-en-attente';
+  enCours = 'en-cours';
+  annule = 'annule';
+  termine = 'termine';
+
   constructor() { }
 
   ngOnInit(): void {

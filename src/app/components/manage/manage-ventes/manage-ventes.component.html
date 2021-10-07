@@ -1,16 +1,16 @@
 <div class="container">
   <mat-tab-group>
     <mat-tab label="En cours">
-      <app-vente-encours></app-vente-encours>
+      <app-vente-list [type]="enCours" [editable]="true"></app-vente-list>
     </mat-tab>
     <mat-tab label="En attente du produit">
-      <app-vente-en-attente-produit></app-vente-en-attente-produit>
+      <app-vente-list [type]="produitEnAttente" [editable]="true"></app-vente-list>
     </mat-tab>
     <mat-tab label="Terminées">
-      <app-ventes-terminees></app-ventes-terminees>
+      <app-vente-list [type]="termine" [editable]="false"></app-vente-list>
     </mat-tab>
     <mat-tab label="Annulées">
-      <app-ventes-annulees></app-ventes-annulees>
+      <app-vente-list [type]="annule" [editable]="false"></app-vente-list>
     </mat-tab>
   </mat-tab-group>
 </div>
