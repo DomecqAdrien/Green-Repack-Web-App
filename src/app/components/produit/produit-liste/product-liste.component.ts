@@ -10,9 +10,9 @@ import { PanierService } from 'src/app/services/panier.service';
 import { ProduitService } from 'src/app/services/produit.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  selector: 'app-product-liste',
+  templateUrl: './product-liste.component.html',
+  styleUrls: ['./product-liste.component.scss']
 })
 export class ProductListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

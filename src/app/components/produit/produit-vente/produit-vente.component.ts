@@ -12,9 +12,9 @@ import { PrixVente } from 'src/app/model/PrixVente';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-vente-create',
-  templateUrl: './vente-create.component.html',
-  styleUrls: ['./vente-create.component.scss']
+  selector: 'app-produit-vente',
+  templateUrl: './produit-vente.component.html',
+  styleUrls: ['./produit-vente.component.scss']
 })
 export class SellFormComponent implements OnInit {
 
@@ -84,7 +84,7 @@ export class SellFormComponent implements OnInit {
 
     this.updateDefaultFields();
 
-    //console.log(this.defaultFields)
+    // console.log(this.defaultFields)
     this.caracteristiques = categorie.caracteristiques;
     const formWithCaracs = {};
     categorie.caracteristiques.forEach((carac: Caracteristique) => {
@@ -125,7 +125,7 @@ export class SellFormComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    
+
     const values = (this.form.value);
     const newVente = new Vente(
       'En cours',
