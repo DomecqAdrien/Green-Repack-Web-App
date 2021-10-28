@@ -32,12 +32,10 @@ export class ManagePrixComponent implements OnInit {
     for (const prix of this.prixVente) {
       prix.categorie = this.categories.filter(cat => cat.id === prix.categorieId)[0].libelle;
     }
-    console.log(this.prixVente);
     this.dataSource = new MatTableDataSource(this.prixVente);
   }
 
   selectCategory(event): void {
-    console.log(event);
     const filteredPrices = this.prixVente.filter(p => p.categorieId === +event.value);
     this.dataSource = new MatTableDataSource(filteredPrices);
   }
@@ -55,9 +53,7 @@ export class ManagePrixComponent implements OnInit {
       prixVenteToCreate.titre = prixVente.titre;
       prixVenteToCreate.categorieId = +prixVente.categorie;
       prixVenteToCreate.prix = prixVente.prix;
-      console.log(prixVenteToCreate);
-      const aa = await this.produitService.createPrixVente(prixVenteToCreate);
-      console.log(aa);
+      await this.produitService.createPrixVente(prixVenteToCreate);
       this.getPrix();
     }
   }

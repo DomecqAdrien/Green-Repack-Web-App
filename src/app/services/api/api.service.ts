@@ -114,7 +114,6 @@ export class ApiService {
     }
 
     public async request<T>(params: any): Promise<T> {
-        console.log(params);
         try {
             const axiosResponse = await axios.request({
                 url: params.url,

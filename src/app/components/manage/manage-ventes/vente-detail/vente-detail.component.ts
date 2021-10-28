@@ -16,6 +16,7 @@ import { PrixVente } from 'src/app/model/PrixVente';
 import { MatDialog } from '@angular/material/dialog';
 import { OffreService } from 'src/app/services/offre.service';
 import { ifStmt } from '@angular/compiler/src/output/output_ast';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-vente-detail',
@@ -45,12 +46,12 @@ export class SellDetailComponent implements OnInit {
     private offreService: OffreService,
     private dialog: MatDialog,
     private router: Router,
+    private alertService: AlertService
   ) { }
 
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
     this.getVente();
   }
 
@@ -58,7 +59,6 @@ export class SellDetailComponent implements OnInit {
     this.vente = await this.venteService.getVenteById(this.id);
     this.caracteristiques = new MatTableDataSource(this.vente.produit.produitCaracteristiques);
     this.offres = new MatTableDataSource(this.vente.offres);
-    console.log(this.vente);
     this.isLoaded = true;
 
     this.form = this.formBuilder.group({
@@ -68,22 +68,16 @@ export class SellDetailComponent implements OnInit {
   }
 
   async onSubmit(): Promise<any>{
-    console.log("hello")
     const statut = this.form.value.statut;
-    if(statut == "Accepté" || statut == "Refusé"){
-      console.log("here")
-      const lastOffer = this.vente.offres[this.vente.offres.length -1]
-      console.log("venteId " +  this.id)
-      console.log("offre " +  lastOffer.id)
-      console.log(statut)
-      const a = await this.venteService.validateVente(this.id, lastOffer.id, statut)
-      console.log(a)
+    if (statut === 'Accepté' || statut === 'Refusé'){
+      const lastOffer = this.vente.offres[this.vente.offres.length - 1];
+      await this.venteService.validateVente(this.id, lastOffer.id, statut);
       this.router.navigate(['/manage/ventes']);
     }
   }
 
   downloadColissimo(): any {
-    //TODO: file download
+    // TODO: file download
   }
 
 
@@ -91,19 +85,14 @@ export class SellDetailComponent implements OnInit {
     this.prixVente = await this.offreService.getPrixVenteByTitre(this.vente.produit.titre);
     const prix = await this.dialog.open(CreateContreOffreComponent, {
       width: '30%',
-      height: '20%',
+      height: '33%',
       data: {
         prix: this.prixVente
       }
     }).afterClosed().toPromise();
-    console.log(prix)
     if (prix !== undefined) {
-      console.log(prix)
-      const a = await this.offreService.createContreOffre(this.id, prix)
-      console.log(a);
-      // const aa = await this.produitService.createCaracteristique(caracToCreate);
-      // console.log(aa);
-      // this.getData()
+      const a = await this.offreService.createContreOffre(this.id, prix);
+      this.alertService.success('Votre offre a bien été soumise');
     }
   }
 

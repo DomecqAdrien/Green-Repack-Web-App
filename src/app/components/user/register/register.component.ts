@@ -70,14 +70,11 @@ export class RegisterComponent implements OnInit {
       const data = this.form.value;
       data.dateNaissance = data.dateNaissance.format('YYYY-MM-DD');
 
-      console.log(data);
-
       this.loading = true;
       this.userService.register(data).then(res => {
         this.alertService.success('Registration successful', { keepAfterRouteChange: true });
         this.router.navigate(['../login'], { relativeTo: this.route });
       }).catch(err => {
-        console.log(err.message);
         this.alertService.error(err.response.data.message);
         this.loading = false;
       });

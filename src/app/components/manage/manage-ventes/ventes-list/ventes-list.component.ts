@@ -29,18 +29,14 @@ export class VentesEnCoursComponent implements OnInit {
   }
 
   async getVentes(): Promise<any> {
-    console.log(this.type);
     this.ventes = await this.venteService.getVentesByStatus(this.type);
-    console.log(this.ventes);
     this.dataSource = new MatTableDataSource(this.ventes);
-    console.log(this.dataSource.data);
 
     this.isLoaded = true;
   }
 
   showDetails(id: number): void{
     if (this.editable){
-      console.log(id);
       this.router.navigate(['../manage/ventes/' + id]);
     }
   }

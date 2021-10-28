@@ -50,7 +50,6 @@ export class ManageCaracteristiquesComponent implements OnInit {
   }
 
   deleteCaracteristique(carac: Caracteristique): void {
-    console.log(carac);
     this.dialog.open(ConfirmComponent, {
       data: {
         message: `Êtes vous sur de vouloir supprimer la caractéristique ${carac.categorie} - ${carac.libelle} ?`
@@ -78,7 +77,6 @@ export class ManageCaracteristiquesComponent implements OnInit {
       caracToCreate.uniteId = +carac.unite;
       caracToCreate.categorieId = +carac.categorie;
       const response = await this.produitService.createCaracteristique(caracToCreate);
-      console.log(response);
       this.getCategories.emit();
     }
   }

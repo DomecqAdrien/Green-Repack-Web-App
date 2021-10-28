@@ -22,7 +22,6 @@ export class CreateCaracteristiqueComponent {
     private dialogRef: MatDialogRef<CreateCaracteristiqueComponent>
   ) {
     this.categories = data.categories;
-    console.log(data);
     this.unites = data.unites;
     this.form = this.formBuilder.group({
       libelle: ['', Validators.required],

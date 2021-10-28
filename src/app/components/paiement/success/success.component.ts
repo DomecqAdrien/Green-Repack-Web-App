@@ -25,7 +25,6 @@ export class SuccessComponent implements OnInit {
     const key = this.route.snapshot.queryParams.key;
     if (key !== undefined) {
       const response = await this.achatService.validateAchat(key);
-      console.log(response);
       if (response.status.toString() === 'Achat non trouvé') {
         this.router.navigate(['/']);
       } else {

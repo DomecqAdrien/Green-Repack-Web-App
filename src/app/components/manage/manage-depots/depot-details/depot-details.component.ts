@@ -29,7 +29,6 @@ export class DepotDetailsComponent implements OnInit {
 
   async getProduits(): Promise<any>{
     this.produits = await this.produitService.getProduitsByDepot(this.id)
-    console.log(this.produits);
     this.dataSource = new MatTableDataSource(this.produits);
     this.isLoaded = true;
   }

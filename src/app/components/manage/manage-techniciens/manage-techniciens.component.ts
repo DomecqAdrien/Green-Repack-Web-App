@@ -32,7 +32,6 @@ export class ManageTechniciensComponent implements OnInit {
 
   async getTechniciens(): Promise<void> {
     this.techniciens = await this.userService.getTechniciens();
-    console.log(this.techniciens);
     this.dataSource = new MatTableDataSource(this.techniciens);
     this.isLoaded = true;
   }
@@ -45,7 +44,6 @@ export class ManageTechniciensComponent implements OnInit {
       width: '30%',
       height: '20%'
     }).afterClosed().toPromise().then(async result => {
-      console.log(result);
       if (result) {
         await this.userService.deleteUser(technicien.id);
         this.getTechniciens();

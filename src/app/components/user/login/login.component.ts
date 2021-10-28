@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   ) {
     if (userService.loggedIn()) {
-      console.log('logged');
       router.navigate(['produits']);
     }
   }
@@ -32,7 +31,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.userService.loggedIn()) {
       this.userService.setIsLogged(true);
-      console.log(this.userService.isLogged);
       this.router.navigate(['produits']);
     }
     this.form = this.formBuilder.group({
@@ -57,19 +55,16 @@ export class LoginComponent implements OnInit {
     }
 
     try {
-      console.log(this.form.value);
       this.loading = true;
       const res = await this.userService.login(this.form.value);
       if (res.error){
         throw res.error;
       }
-      console.log(res);
       localStorage.setItem('green-repack-user-email', this.f.email.value);
       localStorage.setItem('green-repack-user-tk', res.token);
       this.userService.setIsLogged(true);
       this.router.navigate([this.returnUrl]);
     }catch (error) {
-      console.log(error);
       this.alertService.error(error);
       this.loading = false;
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbCarouselConfig, NgbConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ImageItem } from 'ng-gallery';
 import { Produit } from 'src/app/model/Produit';
 import { PanierService } from 'src/app/services/panier.service';
 import { ProduitService } from 'src/app/services/produit.service';
@@ -16,7 +17,7 @@ export class ProductDetailComponent implements OnInit {
   produit: Produit;
   id: any;
   a = '/assets/icon.png';
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  images = []; // [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   slideConfig = {
     slidesToShow: 3,
@@ -36,14 +37,18 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
     this.getProduit();
 
   }
 
   async getProduit(): Promise<void> {
     this.produit = await this.produitService.getProduitById(this.id);
-    console.log(this.produit);
+    for (const pImage of this.produit.images) {
+      this.images.push(new ImageItem({
+        src: pImage.url,
+        thumb: pImage.url
+      }));
+    }
     this.isLoaded = true;
   }
 
