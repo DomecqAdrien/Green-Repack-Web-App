@@ -23,7 +23,6 @@ export class PanierService {
     if (!this.checkIfInPanier(article.id)){
       storage.push(article);
       this.storePanier(storage);
-      console.log(localStorage);
       this.setPanier();
     }
   }

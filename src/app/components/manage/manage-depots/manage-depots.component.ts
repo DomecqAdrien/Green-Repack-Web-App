@@ -31,12 +31,10 @@ export class ManageDepotsComponent implements OnInit {
   async getDepots(): Promise<void> {
     this.depots = await this.depotService.getDepots();
     this.dataSource = new MatTableDataSource(this.depots);
-    console.log(this.depots);
     this.isLoaded = true;
   }
 
   showDetails(id: number): void{
-    console.log(id);
     this.router.navigate(['../manage/depot/' + id]);
   }
 
@@ -46,10 +44,8 @@ export class ManageDepotsComponent implements OnInit {
       height: '65%'
     }).afterClosed().toPromise();
     if (depot !== undefined) {
-      console.log(depot)
-      const aa = await this.depotService.createDepot(depot);
-      console.log(aa);
-      this.getDepots()
+      await this.depotService.createDepot(depot);
+      this.getDepots();
     }
   }
 }

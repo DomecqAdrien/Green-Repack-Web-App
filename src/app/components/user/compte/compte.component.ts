@@ -122,25 +122,21 @@ export class CompteComponent implements OnInit {
   }
 
   async updateOffer(offre: Offre, statut: string): Promise<void> {
-      console.log(offre.id + statut);
 
       (document.getElementById('accept-btn' + offre.id) as HTMLButtonElement).disabled = true;
       (document.getElementById('refuse-btn' + offre.id) as HTMLButtonElement).disabled = true;
 
-      const a = await this.offreService.updateOfferStatus(offre.id, statut);
-      console.log(a);
+      await this.offreService.updateOfferStatus(offre.id, statut);
       this.alertService.info('Votre choix a bien été pris en compte');
       this.getOffres();
       this.getVentes();
   }
 
   async updateRetour(retour: Retour, statut: string): Promise<void> {
-    console.log(retour);
     if (statut === 'Accepté') {
       const sessionId = await this.venteService.checkoutRetour(retour);
       const stripe = await this.stripePromise;
       await stripe.redirectToCheckout({ sessionId });
-      console.log(sessionId);
     }
     if (statut === 'Refusé') {
       await this.venteService.refuseRetour(retour);
@@ -148,12 +144,9 @@ export class CompteComponent implements OnInit {
   }
 
   async save(): Promise<void> {
-    // console.log(this.form.value)
     if (this.form.value.password === ''){
-      console.log('dont send password');
       delete this.form.value.password;
       delete this.form.value.confirmPassword;
-      console.log(this.form.value);
 
       await this.userService.updateUser(this.email, this.form.value);
       this.alertService.success('Update successful');
@@ -162,9 +155,7 @@ export class CompteComponent implements OnInit {
       this.alertService.error('Password and confirm are not identical');
     }
     else if (this.form.value.password === this.form.value.confirmPassword){
-      console.log('send with password');
       delete this.form.value.confirmPassword;
-      console.log(this.form.value);
       await this.userService.updateUser(this.email, this.form.value);
       this.alertService.success('Update successful');
     }
@@ -173,8 +164,7 @@ export class CompteComponent implements OnInit {
   async becomeMarchand(): Promise<void> {
     const user = new Utilisateur();
     user.role = 'En attente';
-    const update = await this.userService.updateUser(this.email, user);
-    console.log(update);
+    await this.userService.updateUser(this.email, user);
     this.alertService.success('Votre demande a bien été prise en compte');
   }
 

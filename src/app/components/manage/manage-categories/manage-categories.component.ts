@@ -32,8 +32,7 @@ export class ManageCategoriesComponent implements OnInit {
       height: '20%'
     }).afterClosed().toPromise();
     if (categorie !== undefined) {
-      const aa = await this.produitService.createCategorie(categorie);
-      console.log(aa);
+      await this.produitService.createCategorie(categorie);
     }
   }
 

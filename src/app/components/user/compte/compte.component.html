@@ -22,10 +22,10 @@
                         <div class="col-md-12"><label class="labels">Ville</label><input formControlName="ville" type="text" class="form-control" ></div>
                     </div>
                     <hr>
-                    <h3>Changer le mot de passe</h3>
+                    <h2>Changer le mot de passe</h2>
                     <div class="row mt-3">
                         <div class="col-md-6"><label class="labels">Entrer un mot de passe</label><input formControlName="password" type="text" class="form-control" placeholder="Mot de passe" value=""></div>
-                        <div class="col-md-6"><label class="labels">Confirmer notre mot de passe</label><input formControlName="confirmPassword" type="text" class="form-control"  value="" placeholder="Confirmer votre mot de passe"></div>
+                        <div class="col-md-6"><label class="labels">Confirmer le mot de passe</label><input formControlName="confirmPassword" type="text" class="form-control"  value="" placeholder="Confirmer votre mot de passe"></div>
                     </div>
                     <div class="mt-5 text-center">
                         <button class="btn btn-primary profile-button" type="button" (click)="save()">Sauvegarder</button>
@@ -166,7 +166,7 @@
                 <ng-container matColumnDef="colis">
                     <mat-header-cell *matHeaderCellDef mat-sort-header="colis"> N° Colis </mat-header-cell>
                     <mat-cell *matCellDef="let retour">
-                        <div class="hyperlink" *ngIf="retour.numero !== null" (click)="downloadColissimo()"><mat-icon>
+                        <div class="hyperlink" *ngIf="retour.statut !== 'En attente'" (click)="downloadColissimo()"><mat-icon>
                             file_download
                             </mat-icon>{{ retour.numero }}</div> 
                     </mat-cell>

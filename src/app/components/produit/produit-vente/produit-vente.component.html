@@ -20,12 +20,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Titre</mat-label>
                 <mat-select formControlName="titre">
-                    <mat-option>
-                        <ngx-mat-select-search formControlName="titreFilter" placeholderLabel="Rechercher..." 
-                        noEntriesFoundLabel="Pas de marque trouvée">
-                        </ngx-mat-select-search>
-                    </mat-option>
-                    <p *ngFor="let prix of filteredPrixVente | async">
+                    <p *ngFor="let prix of filteredPrixVente">
                         <mat-option value="{{ prix.titre }}">{{ prix.titre }}</mat-option>
                     </p>
                 </mat-select>

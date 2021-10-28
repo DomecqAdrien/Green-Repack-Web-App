@@ -44,6 +44,9 @@ import { CreateDepotComponent } from './components/dialog/create-depot/create-de
 import { CreateContreOffreComponent } from './components/dialog/create-contre-offre/create-contre-offre.component';
 import { DepotDetailsComponent } from './components/manage/manage-depots/depot-details/depot-details.component';
 import { StatisticsComponent } from './components/manage/statistics/statistics/statistics.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { GalleryModule } from 'ng-gallery';
 
 
 @NgModule({
@@ -92,9 +95,10 @@ import { StatisticsComponent } from './components/manage/statistics/statistics/s
     MaterialModule,
     FlexLayoutModule,
     NgxStripeModule.forRoot(environment.stripePublicKey),
-    MatCarouselModule.forRoot(),
     NgxDropzoneModule,
-    FileUploadModule
+    NgbModule,
+    FileUploadModule,
+    GalleryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

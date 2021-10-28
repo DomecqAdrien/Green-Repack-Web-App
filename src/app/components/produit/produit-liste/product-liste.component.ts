@@ -25,18 +25,15 @@ export class ProductListComponent implements OnInit {
   filters: Filter = null;
 
 
-  categories = [
-    new Categorie(1, 'Téléphone'),
-    new Categorie(2, 'Electroménager')
-  ];
-  etats = ['Neuf', 'Peu utilisé'];
+  categories = [];
+  etats = ['Neuf', 'Peu utilisé', 'Dégradé'];
   filterForm: FormGroup;
 
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private produitSercice: ProduitService,
+    private produitService: ProduitService,
     private panierService: PanierService
   ) { }
 
@@ -46,8 +43,8 @@ export class ProductListComponent implements OnInit {
   }
 
   async getProduits(): Promise<any> {
-    const produits: Produit[] = await this.produitSercice.getSellableProduits();
-    console.log(produits);
+    this.categories = await this.produitService.getCategories();
+    const produits: Produit[] = await this.produitService.getSellableProduits();
     produits.forEach(produit => {
       this.produitsSource.push(produit);
       this.updateDataSource(this.produitsSource);
@@ -81,9 +78,6 @@ export class ProductListComponent implements OnInit {
       categorie: this.filterForm.get('categorie').value
     };
 
-    console.log(this.filterForm.value);
-    console.log(this.filters);
-
     const filteredList = this.filterProductList();
     this.dataSource = new MatTableDataSource(filteredList);
     this.dataSource.paginator = this.paginator;
@@ -91,7 +85,6 @@ export class ProductListComponent implements OnInit {
   }
 
   clearFilters(): void {
-    console.log('allo');
     this.filterForm.reset();
     this.filters = null;
   }
@@ -107,7 +100,6 @@ export class ProductListComponent implements OnInit {
     let copyProduits = [];
     this.produitsSource.forEach(produit => copyProduits.push(produit));
 
-    console.log(copyProduits);
     if (filters.categorie) {
       copyProduits = copyProduits.filter(val => val.categorieId === Number(filters.categorie));
     }
@@ -121,12 +113,10 @@ export class ProductListComponent implements OnInit {
   }
 
   consulter(id: number): any {
-    console.log(id);
     this.router.navigate(['../produit/' + id]);
   }
 
   addToPanier(produit: Produit): any {
-    console.log(produit);
     this.panierService.addToBasket(produit);
   }
 

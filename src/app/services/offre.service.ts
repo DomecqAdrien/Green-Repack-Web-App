@@ -16,14 +16,14 @@ export class OffreService extends ApiService{
      });
    }
 
-   public async updateOfferStatus(id: Number, statut: string): Promise<any>{
+   public async updateOfferStatus(id: number, statut: string): Promise<any>{
     return await this.putApi<any>({
       url: '/offre/statut/' + id,
       data: {statut}
     });
    }
 
-   public async createContreOffre(id: Number, prix: Number): Promise<any>{
+   public async createContreOffre(id: number, prix: number): Promise<any>{
     return await this.postApi<any>({
       url: '/contre-offre/' + id,
       data: {prix}

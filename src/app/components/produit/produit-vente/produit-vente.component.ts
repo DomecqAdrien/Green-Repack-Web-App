@@ -29,22 +29,12 @@ export class SellFormComponent implements OnInit {
   prixVente: PrixVente[] = [];
   catPrixVente: PrixVente[] = [];
   caracteristiques: Caracteristique[] = [];
-  filteredPrixVente: ReplaySubject<PrixVente[]> = new ReplaySubject<PrixVente[]>(1);
+  filteredPrixVente: PrixVente[] = [];
   etats = ['Neuf', 'Peu utilisé', 'Dégradé'];
 
 
   defaultFields = {
     titre: ['', Validators.required],
-    marque: ['', Validators.required],
-    titreFilter: [''],
-    categorie: ['', Validators.required],
-    description: [''],
-    etat: ['', Validators.required]
-  };
-
-  defaultFields2 = {
-    titre: ['', Validators.required],
-    marque: ['', Validators.required],
     titreFilter: [''],
     categorie: ['', Validators.required],
     description: [''],
@@ -61,64 +51,13 @@ export class SellFormComponent implements OnInit {
    ) { }
 
   async ngOnInit(): Promise<any> {
-    console.log(this.defaultFields);
     this.form = this.formBuilder.group(this.defaultFields);
     this.prixVente = await this.produitService.getPrixProduits();
     this.categories = await this.produitService.getCategories();
   }
 
-  selectCategory(event: any): void{
-
-    this.isCategorySelected = true;
-
-    const categorie = this.categories.filter(c => c.id === +event.value)[0];
-    this.catPrixVente = this.prixVente.filter(p => p.categorieId === categorie.id);
-
-    this.filteredPrixVente.next(this.catPrixVente.slice());
-
-    this.form.controls.titreFilter.valueChanges
-      .subscribe(() => {
-        this.filterMarques();
-    });
-
-
-    this.updateDefaultFields();
-
-    // console.log(this.defaultFields)
-    this.caracteristiques = categorie.caracteristiques;
-    const formWithCaracs = {};
-    categorie.caracteristiques.forEach((carac: Caracteristique) => {
-      this.caracsInstances[carac.id] = carac;
-      formWithCaracs['carac_' + carac.id] = ['', Validators.required];
-    });
-    Object.assign(formWithCaracs, this.defaultFields);
-
-    console.log(formWithCaracs);
-    this.form = this.formBuilder.group(formWithCaracs);
-  }
-
-  filterMarques(): any{
-    if (!this.categories) {
-      return;
-    }
-
-    this.isLoading = true;
-    let search = this.form.value.titreFilter;
-    if (!search) {
-      this.filteredPrixVente.next(this.catPrixVente.slice());
-      return;
-    } else {
-      search = search.toLowerCase();
-    }
-
-    this.filteredPrixVente.next(
-      this.catPrixVente.filter(prix => prix.titre.toLowerCase().indexOf(search) > -1)
-    );
-  }
-
   async onSubmit(): Promise<any> {
     if (this.files.length === 0) {
-      console.log('no image');
       this.hasImage = false;
       return;
     }
@@ -134,22 +73,42 @@ export class SellFormComponent implements OnInit {
 
     Object.keys(values).forEach(key => {
       if (key.startsWith('carac_')) {
-        console.log(key.replace('carac_', ''));
         newVente.produit.produitCaracteristiques.push(
           new ProduitCaracteristiques(+key.replace('carac_', ''), values[key]));
       }
     });
 
     for (const file of this.files) {
-      const a = await this.readFile(file);
-      const img = await this.imageService.uploadImage(a);
-      console.log(img);
+      const b64String = await this.readFile(file);
+      // const b = await this.resizeImage(b64String);
+      const img = await this.imageService.uploadImage(b64String);
       newVente.produit.images.push(img.data.url);
     }
 
-    console.log(newVente);
     await this.produitService.createProduit(newVente);
     this.router.navigate(['/compte'], {queryParams: { vente: 'success' }});
+  }
+
+
+  selectCategory(event: any): void{
+
+    this.isCategorySelected = true;
+
+    const categorie = this.categories.filter(c => c.id === +event.value)[0];
+    this.catPrixVente = this.prixVente.filter(p => p.categorieId === categorie.id);
+
+    this.filteredPrixVente = this.catPrixVente;
+    this.updateDefaultFields();
+
+    this.caracteristiques = categorie.caracteristiques;
+    const formWithCaracs = {};
+    categorie.caracteristiques.forEach((carac: Caracteristique) => {
+      this.caracsInstances[carac.id] = carac;
+      formWithCaracs['carac_' + carac.id] = ['', Validators.required];
+    });
+    Object.assign(formWithCaracs, this.defaultFields);
+
+    this.form = this.formBuilder.group(formWithCaracs);
   }
 
   updateDefaultFields(): any {
@@ -157,6 +116,10 @@ export class SellFormComponent implements OnInit {
       this.defaultFields[key] = [this.form.value[key], this.form.controls[key].validator];
     });
   }
+
+
+
+  // GESTION IMAGES
 
   onSelect(event: any): void {
     this.hasImage = true;
@@ -173,6 +136,37 @@ export class SellFormComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
       reader.onerror = error => reject(error);
+    });
+  }
+
+  private async resizeImage(base64Str: string, maxWidth = 400, maxHeight = 350): Promise<string> {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = base64Str;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = maxWidth;
+        const MAX_HEIGHT = maxHeight;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL());
+      };
     });
   }
 

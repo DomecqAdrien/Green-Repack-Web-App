@@ -8,7 +8,7 @@
     </div>
     <div>
         <mat-form-field appearance="fill">
-            <mat-label>Catégories</mat-label>
+            <mat-label>Catégorie</mat-label>
             <mat-select  formControlName="categorie">
             <p *ngFor="let categorie of categories">
                 <mat-option value="{{ categorie.id }}">{{ categorie.libelle }}</mat-option>

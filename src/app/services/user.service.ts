@@ -35,7 +35,6 @@ export class UserService extends ApiService {
   }
 
   public async login(user: any): Promise<any>{
-    console.log(user);
     return await this.postApi<any>({
       url: '/login',
       data: user
@@ -95,19 +94,6 @@ export class UserService extends ApiService {
     this.isTechnicien.next(this.userRole === 'Technicien');
     this.isMarchand.next(this.userRole === 'Marchand');
   }
-
-  // isAdmin(): boolean {
-  //   return this.userRole === 'Administrateur';
-  // }
-
-  // isTechnicien(): boolean {
-  //   console.log(this.userRole);
-  //   return this.userRole === 'Technicien';
-  // }
-
-  // isMarchand(): boolean {
-  //   return this.userRole === 'Marchand';
-  // }
 
   getEmail(): string {
     return localStorage.getItem('green-repack-user-email');
