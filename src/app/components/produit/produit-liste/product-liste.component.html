@@ -37,19 +37,19 @@
                 <mat-card-header>
                     <mat-card-title>{{produit.titre}}</mat-card-title>
                 </mat-card-header>
-                <img mat-card-image src="{{ produit.images[0].url }}">
+                <img class="image" mat-card-image src="{{ produit.images[0].url }}">
                 <mat-card-content>
-                    Etat: {{ produit.etat }}
-                    Prix: {{ produit.prix }} €
+                    <div>Etat: {{ produit.etat }}</div>
+                    <div>Prix: {{ produit.prix }} €</div>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-flat-button class="button-consulter" (click)="consulter(produit.id)">Consulter</button>
-                    <button mat-flat-button class="button-panier" (click)="addToPanier(produit)">Ajouter au panier</button>
+                    <button mat-raised-button class="button-consulter" (click)="consulter(produit.id)">Consulter</button>
+                    <button mat-raised-button class="button-panier" (click)="addToPanier(produit)" align="end">Ajouter au panier</button>
                 </mat-card-actions>
             </mat-card>
         </div>
     </div>
-    <mat-paginator [length]="100"
+    <mat-paginator
     [pageSize]="10"
     [pageSizeOptions]="[5, 10, 25, 100]"
     aria-label="Select page">

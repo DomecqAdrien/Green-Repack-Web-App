@@ -25,18 +25,15 @@ export class ProductListComponent implements OnInit {
   filters: Filter = null;
 
 
-  categories = [
-    new Categorie(1, 'Téléphone'),
-    new Categorie(2, 'Electroménager')
-  ];
-  etats = ['Neuf', 'Peu utilisé'];
+  categories = [];
+  etats = ['Neuf', 'Peu utilisé', 'Dégradé'];
   filterForm: FormGroup;
 
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private produitSercice: ProduitService,
+    private produitService: ProduitService,
     private panierService: PanierService
   ) { }
 
@@ -46,7 +43,8 @@ export class ProductListComponent implements OnInit {
   }
 
   async getProduits(): Promise<any> {
-    const produits: Produit[] = await this.produitSercice.getSellableProduits();
+    this.categories = await this.produitService.getCategories();
+    const produits: Produit[] = await this.produitService.getSellableProduits();
     produits.forEach(produit => {
       this.produitsSource.push(produit);
       this.updateDataSource(this.produitsSource);

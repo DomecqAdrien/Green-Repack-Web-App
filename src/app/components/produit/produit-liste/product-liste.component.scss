@@ -1,38 +1,27 @@
 .content {
-    padding: 16px;
+  padding: 16px;
 }
 
-.mat-card{
-    display:flex;
-    flex-direction: column;
-  }
-  
-  .mat-card-header {
-    flex-shrink: 0;
-  }
-  
-  .mat-card-content{
-    flex-grow: 1;
-    overflow: auto;
-  }
+.image{
+  height: 200px; /* adjust as needed */
+  object-fit: contain;
+}
 
 button {
-    width: 40%;
-    font-size: 80%;
-    text-align: center;
-    background-color: #EAEAEA;
-    border: 1px black !important;
+  text-align: center;
+  background-color: #EAEAEA;
+  border: 1px black !important;
 }
 
 .button-panier {
-    color: orange;
+  background-color: orange;
+  justify-content: flex-end;
 }
 
 .button-consulter {
-    color: green;
+  background-color: green;
 }
 
 .filterButton {
-    width: 10%;
-    margin: 10px;
+  margin: 10px;
 }

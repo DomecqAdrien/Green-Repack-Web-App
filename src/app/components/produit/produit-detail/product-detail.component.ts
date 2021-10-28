@@ -43,6 +43,7 @@ export class ProductDetailComponent implements OnInit {
 
   async getProduit(): Promise<void> {
     this.produit = await this.produitService.getProduitById(this.id);
+    console.log(this.produit)
     for (const pImage of this.produit.images) {
       this.images.push(new ImageItem({
         src: pImage.url,
